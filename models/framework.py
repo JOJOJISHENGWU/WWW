@@ -1,16 +1,8 @@
+"""Overall model wrapper for the anonymous proposed traffic forecasting method.
+
+The filename is retained for compatibility with the existing repository
+layout, but the model is referred to generically in code and documentation.
 """
-Pseudo-code level implementation of SCOUT.
-
-SCOUT paper-aligned tri-modal pipeline:
-  Stage 1: FCR-ST (spectral-topological baseline)
-  Stage 2: PCS-ViM (morphological bounded correction)
-  Stage 3: TESC-EoS (semantic dynamic modulation)
-
-This file intentionally emphasizes algorithmic mapping and symbol consistency
-with the paper (Y_FCR, DeltaY_img, DeltaY_sem, rho_comm, rho_tilde) rather than
-full engineering reproducibility.
-"""
-
 from __future__ import annotations
 
 from typing import Dict, Optional
@@ -20,125 +12,140 @@ import torch.nn as nn
 
 from .FCR_ST import FCR_ST
 from .PCS_ViM import PCS_ViM
-from .TESC_EoS import TESC_EoS
+from .TSC import TSC
 
 
-class SCOUT(nn.Module):
-    """
-    Spectral-Community Orchestrated Unified Tri-modal model (pseudocode form).
-
-    Args:
-        in_channels: input feature channels
-        hidden_channels: latent width
-        num_nodes: graph nodes
-        out_horizon: prediction horizon
-        num_communities: spectral communities
-
-    Forward returns a dictionary for transparent stage-wise interpretation.
-    """
+class TrafficForecastModel(nn.Module):
+    """Integrate FCR-ST, PCS-ViM and MLP-based TSC."""
 
     def __init__(
         self,
         in_channels: int,
         hidden_channels: int,
         num_nodes: int,
-        out_horizon: int,
-        num_communities: int = 8,
+        out_horizon: int = 12,
+        seq_len: int = 12,
+        num_communities: int = 4,
+        topk_freq: int = 6,
+        cheb_order_local: int = 1,
+        cheb_order_global: int = 3,
+        num_morphology_prototypes: int = 8,
+        num_state_prototypes: int = 8,
+        warmup_steps: int = 1000,
+        node2comm: Optional[torch.Tensor] = None,
+        adj: Optional[torch.Tensor] = None,
+        avg_shortest_path_cost: Optional[torch.Tensor] = None,
     ) -> None:
         super().__init__()
-        self.out_horizon = out_horizon
+        if adj is None:
+            raise ValueError("A road adjacency matrix is required by the graph-based framework")
+        if node2comm is None:
+            raise ValueError("Offline spectral community labels (node2comm) must be supplied")
+        self.num_nodes = int(num_nodes)
+        self.hidden_channels = int(hidden_channels)
+        self.seq_len = int(seq_len)
+        self.out_horizon = int(out_horizon)
+        self.num_communities = max(int(num_communities), int(torch.as_tensor(node2comm).max().item()) + 1)
 
-        # Stage-1: baseline backbone
         self.fcr_st = FCR_ST(
             in_channels=in_channels,
             hidden_channels=hidden_channels,
             num_nodes=num_nodes,
-            num_communities=num_communities,
+            num_communities=self.num_communities,
+            topk_freq=topk_freq,
+            cheb_order_local=cheb_order_local,
+            cheb_order_global=cheb_order_global,
+            node2comm=node2comm,
+            adj=adj,
         )
-
-        # Baseline readout Y_FCR
-        self.baseline_head = nn.Conv2d(hidden_channels, out_horizon, kernel_size=(1, 1))
-
-        # Stage-2: morphology residual branch
-        self.pcs_vim = PCS_ViM(d_model=hidden_channels, out_horizon=out_horizon)
-
-        # Stage-3: semantic residual branch + route modulation
-        self.tesc_eos = TESC_EoS(
+        self.pcs_vim = PCS_ViM(
             d_model=hidden_channels,
-            num_communities=num_communities,
             out_horizon=out_horizon,
+            num_prototypes=num_morphology_prototypes,
+            num_nodes=num_nodes,
+            num_communities=self.num_communities,
+            node2comm=node2comm,
+            avg_shortest_path_cost=avg_shortest_path_cost,
+        )
+        self.tsc = TSC(
+            d_model=hidden_channels,
+            num_communities=self.num_communities,
+            out_horizon=out_horizon,
+            num_prototypes=num_state_prototypes,
+            warmup_steps=warmup_steps,
         )
 
-    @staticmethod
-    def _warmup_weight(step: Optional[int], total: int = 10_000) -> float:
-        """Simple linear warmup surrogate for lambda_img/lambda_sem schedules."""
-        if step is None:
-            return 1.0
-        return float(min(1.0, max(0.0, step / float(total))))
+        # Linear prediction head: project the historical time axis to H steps,
+        # then map hidden features to one traffic value per node and horizon.
+        self.temporal_projection = nn.Linear(seq_len, out_horizon)
+        self.channel_projection = nn.Linear(hidden_channels, 1)
 
     def forward(
         self,
         x: torch.Tensor,
-        *,
-        adj: Optional[torch.Tensor] = None,
-        step: Optional[int] = None,
+        step: int = 0,
         inference: bool = False,
-    ) -> Dict[str, torch.Tensor | list[str]]:
-        """
-        Args:
-            x: (B, C_in, N, T)
-            adj: optional graph adjacency placeholder
-            step: global optimization step for warmup scheduling
-            inference: if True, fix lambda=1 and use semantic cache path
+    ) -> Dict[str, torch.Tensor]:
+        """Input x=(B,1,N,T); return y_hat=(B,H,N)."""
+        if x.ndim != 4:
+            raise ValueError(f"Expected x=(B,C,N,T), got {tuple(x.shape)}")
+        if x.shape[2] != self.num_nodes:
+            raise ValueError(f"Expected {self.num_nodes} nodes, got {x.shape[2]}")
+        if x.shape[-1] != self.seq_len:
+            raise ValueError(f"Expected seq_len={self.seq_len}, got {x.shape[-1]}")
 
-        Returns:
-            A dict with final prediction and intermediate paper symbols.
-        """
-        # -------------------------
-        # Stage 1: FCR-ST
-        # -------------------------
-        stage1 = self.fcr_st(x, adj=adj)
-        H_spatial = stage1["H_spatial"]
-        rho_comm = stage1["rho_comm"]
+        fcr = self.fcr_st(x)
+        h_mod = fcr["H_mod"]
+        rho_comm = fcr["rho_comm"]
+        routing_logits = fcr["routing_logits"]
+        h_spatial_base = fcr["H_spatial"]
 
-        # Baseline prediction Y_FCR
-        y_fcr = self.baseline_head(H_spatial.mean(dim=-1, keepdim=True)).squeeze(-1)  # (B, horizon, N)
+        # PCS-ViM provides the topology-informed morphology residual branch.
+        pcs = self.pcs_vim(h_spatial_base)
 
-        # -------------------------
-        # Stage 2: PCS-ViM
-        # -------------------------
-        stage2 = self.pcs_vim(H_spatial)
-        delta_y_img = stage2["delta_y_img"]
+        # TSC first computes state and corrected routing. The corrected spatial
+        # feature map is then recomputed with rho_tilde, as specified in Eq. (23).
+        x_raw = x.squeeze(1).transpose(1, 2)  # (B,T,N)
+        tsc_state = self.tsc(
+            X=x_raw,
+            rho_comm=rho_comm,
+            S=None,
+            t=step,
+            routing_logits=routing_logits,
+            inference=inference,
+        )
+        rho_tilde = tsc_state["rho_tilde"]
+        h_spatial = self.fcr_st.route_features(h_mod, rho_tilde)
 
-        # -------------------------
-        # Stage 3: TESC-EoS
-        # -------------------------
-        stage3 = self.tesc_eos(H_spatial, rho_comm, use_cache=inference)
-        rho_tilde = stage3["rho_tilde"]
-        delta_y_sem = stage3["delta_y_sem"]
+        # S ≡ H_spatial in (B,T,N,D) layout; apply bounded feature correction.
+        spatial_features = h_spatial.permute(0, 3, 2, 1)
+        delta_h_corr = self.tsc.apply_feature_correction(spatial_features, tsc_state["beta_eff"])
+        fused_features = spatial_features + delta_h_corr
 
-        # -------------------------
-        # Aggregation
-        # -------------------------
-        if inference:
-            lambda_img = 1.0
-            lambda_sem = 1.0
-        else:
-            lambda_img = self._warmup_weight(step, total=8_000)
-            lambda_sem = self._warmup_weight(step, total=12_000)
+        # Y_hat_FCR = Linear(H_spatial + Delta H_corr), followed by image residual.
+        temporal_input = fused_features.permute(0, 2, 3, 1)  # (B,N,D,T)
+        temporal_hidden = self.temporal_projection(temporal_input)  # (B,N,D,H)
+        per_node_horizon = self.channel_projection(temporal_hidden.permute(0, 1, 3, 2)).squeeze(-1)
+        y_fcr = per_node_horizon.transpose(1, 2)  # (B,H,N)
+        y_hat = y_fcr + pcs["delta_y_img"]
 
-        y_hat = y_fcr + lambda_img * delta_y_img + lambda_sem * delta_y_sem
-
+        w_low, w_high = self.fcr_st.regularization_weights()
         return {
             "y_hat": y_hat,
             "y_fcr": y_fcr,
-            "delta_y_img": delta_y_img,
-            "delta_y_sem": delta_y_sem,
-            "lambda_img": torch.tensor(lambda_img, device=x.device),
-            "lambda_sem": torch.tensor(lambda_sem, device=x.device),
+            "delta_y_img": pcs["delta_y_img"],
+            "H_spatial": h_spatial,
+            "H_mod": h_mod,
+            "M_comm": fcr["M_comm"],
             "rho_comm": rho_comm,
+            "routing_logits": routing_logits,
             "rho_tilde": rho_tilde,
-            "M_comm": stage1["M_comm"],
-            "event_tokens": stage3["event_tokens"],
-            "node_priority_q": stage2["node_priority_q"],
+            "s_ctrl": tsc_state["s_ctrl"],
+            "beta_eff": tsc_state["beta_eff"],
+            "delta_H_corr": delta_h_corr,
+            "node_priority_q": pcs["node_priority_q"],
+            "perm_pi": pcs["perm_pi"],
+            "W_low": w_low,
+            "W_high": w_high,
         }
+
