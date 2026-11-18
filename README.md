@@ -1,8 +1,6 @@
 <div align="center">
 
-# 🚦 SCOUT
-**Spectral-Community Orchestrated Unified Tri-Modal Network for Traffic Prediction**
-
+# Community-Conditioned Spectral Routing for Traffic Prediction under Changing Traffic Conditions
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?logo=PyTorch&logoColor=white)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -11,165 +9,180 @@
 
 ## 💡 Overview
 
-Urban traffic dynamics inherently manifest as a complex multimedia system, where **numerical rhythms**, **visual morphology**, and **linguistic semantic events** are deeply intertwined. However, existing methods rigidly treat traffic forecasting as a uni-modal graph property, leading to severe performance drops during sudden congestion or event-driven anomalies.
+Urban traffic prediction requires modeling temporal frequency patterns, road-network topology, and changing traffic states. However, frequency-agnostic spatial operators may apply similar propagation patterns to road communities with different temporal characteristics, while fixed sequence orderings may fail to reflect the topology of non-grid sensor networks. Traffic-regime transitions further increase the difficulty of stable prediction.
 
-**SCOUT** is an innovative framework that breaks the single-modality limitation. We elevate traffic prediction into a **Tri-modal Representation Learning** paradigm by explicitly decoupling stationary rhythmic estimation from bounded morphological and semantic dynamic corrections. 
+This repository contains the implementation and experimental resources for **Community-Conditioned Spectral Routing for Traffic Prediction under Changing Traffic Conditions**. The proposed framework is centered on **community-conditioned spectral routing**: it uses community-level spectral descriptors to adaptively balance local and global graph propagation. Two complementary components provide topology-informed morphology encoding and evidence-driven traffic-state control.
 
-SCOUT achieves new State-of-the-Art (SOTA) results across 6 real-world benchmark datasets (including a remarkable **28.09% MAE reduction** on PeMS-BAY).
+Experiments on six real-world traffic datasets show improvements over the compared baselines. In particular, the proposed method reduces MAE by **23.9% on PeMS-BAY at the 15-minute prediction horizon** (MAE 0.921).
 
 <p align="center">
-  <img src="https://github.com/JOJOJISHENGWU/SCOUT/blob/main/SCOUT.png" alt="SCOUT Architecture" width="85%">
+  <img src="https://github.com/JOJOJISHENGWU/WWW/blob/main/paper.png" alt="Framework Architecture" width="85%">
   <br>
-  <em>Figure 1: The Overall Architecture of SCOUT.</em>
+  <em>Overall architecture of the proposed traffic prediction framework.</em>
 </p>
 
-## 🚀 Key Modules & Design Philosophy
+## 🚀 Key Modules & Design
 
-SCOUT explicitly rejects the "blindly stacking Transformers/Mambas" approach. Instead, it follows a strict physical topology -> morphology -> semantic logic workflow. Here is a concise introduction to each core module:
+The framework contains three complementary components. Its central mechanism is FCR-ST; PCS-ViM and TSC provide additional topology and traffic-state information.
 
-*   **1. FCR-ST (Frequency-Community Routed Spatio-Temporal Backbone)** 🎶
-    *   *Introduction:* The fundamental numerical rhythm extractor. It resolves spectral-topological misalignment.
-    *   *Mechanism:* Uses RFFT and Graph Laplacian K-Means to extract functional communities. Employs a **dual-kernel routing** mechanism to adaptively assign specific spatial transmission paths for high/low-frequency patterns depending on community traits.
-*   **2. PCS-ViM (Propagation-Compiled Scanning VisionMamba)** 👁️
-    *   *Introduction:* The geometric flow morphology corrector. It tackles the fatal "raster-scan mismatch" in gridless sensor graphs.
-    *   *Mechanism:* Reorders nodes into a **diffusion-consistent sequence** based on travel-time priors, allowing a dual-axis **VisionMamba (SSM)** to capture directional congestion shockwaves as a bounded residual correction.
-*   **3. TSC (Traffic State Controller)** 🧠
-    *   *Introduction:* The evidence-driven event-state controller. It compiles short-term traffic dynamics into a compact latent control state for bounded spatio-temporal calibration.
-    *   *Mechanism:* Extracts a 5-dimensional evidence vector from recent traffic dynamics and induces a latent control state via a lightweight **MLP encoder** with prototype anchoring, which boundedly modulates community routing and residual correction through warmup-gated signals. An optional frozen-LLM branch (TESC-EoS) can provide additive semantic enhancement but is disabled in the main setting.
+* **1. FCR-ST (Frequency-Community Routed Spatio-Temporal Backbone)** 🎶
+  * **Role:** Core spectral-spatial prediction backbone.
+  * **Mechanism:** It constructs road communities through spectral clustering on the normalized graph Laplacian, applies RFFT to traffic observations, and aggregates spectral magnitudes within each community. Community-level spectral descriptors generate routing weights that balance local graph propagation for short-range dependencies and global propagation for broader interactions. The graph filters are implemented with Chebyshev polynomial approximation.
+
+* **2. PCS-ViM (Propagation-Compiled Scanning VisionMamba)** 👁️
+  * **Role:** Topology-informed morphology encoder.
+  * **Mechanism:** It derives node priorities from community potential and average shortest-path costs, then reorders nodes to form a topology-informed scan sequence. Dual-axis VisionMamba encoders model temporal and reordered spatial patterns. A non-reordered branch, learnable morphology prototypes, and a propagation-aware gate are used to preserve spatial cues and inject the resulting morphology correction. The priority-based ordering is a scan heuristic; it does not guarantee that every directed road edge is traversed consistently.
+
+* **3. TSC (Traffic State Controller)** 🧠
+  * **Role:** Evidence-driven state control for changing traffic conditions.
+  * **Mechanism:** It constructs a five-dimensional evidence vector describing shock, trend, recovery, volatility, and magnitude. A lightweight MLP maps this vector to a latent state, which is anchored by a learnable prototype bank. A warmup gate then uses the state to modulate community-routing logits and the strength of feature-level residual correction. **TSC is an MLP-based controller; the proposed framework does not require an LLM branch.**
 
 ## ⚙️ Algorithm & Execution Flow
 
-The systematic integration of these three modules is formalized in the SCOUT Training and Inference loop below, demonstrating how baseline forecasting and cross-modal residual corrections are compiled:
+The overall training and inference process follows the methodology and algorithm in the paper:
 
 ```text
-Algorithm 1: Training and Inference Procedure of SCOUT
----------------------------------------------------------------------------
-Input: Tensor X, Graph A, community map C, target Y, epochs E, warmup schedules.
-Output: Prediction Y_hat.
+Algorithm: Training and Inference Procedure
+----------------------------------------------------------------------------
+Input: Training data (X, Y), road graph A, epochs E, warmup schedule λ(t).
+Output: Trained parameters Θ and traffic predictions Y_hat.
 
-Preprocessing (Offline):
-  1. Compute Laplacian L, spectral assignments C, and node priorities q.
-  2. Initialize parameters Θ; freeze LLM backbone.
+Offline preprocessing:
+  1. Compute the normalized graph Laplacian and spectral community assignments.
+  2. Compute average shortest-path costs for topology-informed node priorities.
+  3. Initialize model parameters.
 
-Training Loop:
-  For e = 1 to E do:
-    For each mini-batch (X, Y) do:
-      
-      [Stage 1: FCR-ST] (Spectral-Topological Backbone)
-        - Apply RFFT & aggregate community spectrum M_comm.
-        - Extract periodic features Z via Top-k filtering and Conv2D.
-        - Modulate features into H_mod via community affine recalibration.
-        - Compute routing weights ρ_comm = σ(MLP(M_comm)).
-        - Spatial Prop: H_spatial = ρ_comm ⊙ K_local + (1-ρ_comm) ⊙ K_global.
-      
-      [Stage 2: PCS-ViM] (Morphological Correction)
-        - Generate pseudo-image H; reorder node axis Π = Argsort(q).
-        - Extract morphology h_scan ← Dual-SSM(H^Π).
-        - Compute image residual ΔY_img via prototype-guided injection.
-      
-      [Stage 3: TSC] (State-Guided Modulation)
-        - Construct evidence vector v_t from short-window statistics.
-        - Induce control state s_ctrl via MLP encoder and prototype anchoring.
-        - Dynamically modulate routing weights to ρ_tilde via warmup-gated signals.
-        - Compute correction residual ΔY_corr via bounded state modulation.
-      
-      [Optimization]
-        - Aggregate baseline: Y_FCR = Linear(H_spatial).
-        - Final Fusion: Y_hat = Y_FCR + λ_img(t)*ΔY_img + λ_sem(t)*ΔY_corr.
-        - Update Θ by minimizing composite Loss: L_pred + λ_spec*L_spec + L_reg.
+For each training epoch and mini-batch:
+  [Stage 1: FCR-ST]
+    - Apply RFFT and aggregate community-specific spectral descriptors.
+    - Extract period-aware temporal features and apply community affine modulation.
+    - Generate community routing weights from spectral descriptors.
+    - Balance local and global Chebyshev graph-filter outputs.
 
-Inference: 
-  - Fix λ=1, disable gradients, use O(1) cached LLM representations.
----------------------------------------------------------------------------
+  [Stage 2: PCS-ViM]
+    - Construct pseudo-image features and compute topology-informed node priorities.
+    - Reorder nodes and apply dual-axis VisionMamba encoding.
+    - Fuse reordered and original-order features.
+    - Use morphology prototypes and a topology-aware gate to obtain an image correction.
+
+  [Stage 3: TSC]
+    - Extract the five-dimensional traffic-state evidence vector.
+    - Encode the evidence with an MLP and perform prototype-based state anchoring.
+    - Modulate routing logits and feature-correction strength through the warmup gate.
+
+  [Prediction and optimization]
+    - Perform state-conditioned local/global spatial routing.
+    - Apply the state-guided feature correction before the prediction head.
+    - Add the PCS-ViM morphology correction to obtain the final prediction.
+    - Optimize the prediction, spectral-consistency, and regularization losses.
+
+Inference:
+  - Set the warmup gate λ(t) to 1 and disable gradients.
+----------------------------------------------------------------------------
 ```
 
-## 📊 Main Results & Datasets
+The training objective combines an MAE-plus-Huber prediction loss, a spectral-consistency loss, and regularization for routing separability and graph-kernel orthogonality.
 
-SCOUT is evaluated on 6 real-world datasets in the full pipeline. In this anonymous review package, we release a **PEMS08 verification artifact** (`config + checkpoint + full train log + traceability table`) to balance reproducibility and code confidentiality.
+## 📊 Datasets & Main Results
 
-| Datasets  | Nodes | Edges | Time Steps | Time Ranges           |
-|-----------|-------|-------|------------|-----------------------|
-| PeMS03    | 358   | 547   | 26208      | 9/1/2018-11/30/2018   |
-| PeMS04    | 307   | 340   | 16992      | 1/1/2018-2/28/2018    |
-| PeMS07    | 883   | 866   | 28224      | 5/1/2017-8/31/2017    |
-| PeMS08    | 170   | 295   | 17856      | 7/1/2016-8/31/2016    |
-| METR-LA   | 207   | 1515  | 34272      | 03/2012-06/2012       |
-| PeMS-BAY  | 325   | 2369  | 52116      | 01/2017-05/2017       |
+The framework is evaluated on six real-world traffic datasets. All datasets are sampled at 5-minute intervals.
+
+| Dataset | Nodes | Edges | Time Steps | Time Range |
+|---|---:|---:|---:|---|
+| PeMS03 | 358 | 547 | 26,208 | 2018-09-01 to 2018-11-30 |
+| PeMS04 | 307 | 340 | 16,992 | 2018-01-01 to 2018-02-28 |
+| PeMS07 | 883 | 866 | 28,224 | 2017-05-01 to 2017-08-31 |
+| PeMS08 | 170 | 295 | 17,856 | 2016-07-01 to 2016-08-31 |
+| METR-LA | 207 | 1,515 | 34,272 | 2012-03 to 2012-06 |
+| PeMS-BAY | 325 | 2,369 | 52,116 | 2017-01 to 2017-06 |
+
+The following values are reported in the paper's performance comparison tables:
+
+| Dataset | Proposed MAE | Reported MAE improvement |
+|---|---:|---:|
+| PeMS03 | 12.08 | 15.82% |
+| PeMS04 | 15.81 | 12.60% |
+| PeMS07 | 16.36 | 14.52% |
+| PeMS08 | 12.14 | 8.72% |
+| PeMS-BAY (15 min) | 0.921 | **23.9%** |
+| METR-LA (60 min) | 2.84 | — |
+
+For METR-LA at the 60-minute horizon, the paper reports an MAE of 2.84, compared with 3.34 for STAEformer and 3.31 for ST-MambaSync. The paper evaluates performance using MAE, RMSE, and MAPE; lower values indicate better performance.
 
 ## 🔬 Experimental Settings
 
-To ensure reproducibility, SCOUT is evaluated under strict experimental configurations:
+The experimental settings reported in the paper are:
 
-- **Hardware Environment:** NVIDIA GeForce RTX 5090 (32 GB) GPU, Intel Xeon Platinum 8470Q CPU, and 90 GB RAM.
-- **Dataset Split:** Chronological split of 7:2:1 for training, validation, and testing.
-- **Hyperparameters:** 
-  - Input sequence length $T = 12$ (60 minutes historical window).
-  - Hidden dimension $d_{\text{model}} = 128$.
-  - Decoder layers $L = 3$.
-  - Optimizer: Adam with learning rate $1 \times 10^{-4}$ and batch size $32$.
-- **Evaluation Metrics:** Mean Absolute Error (MAE), Root Mean Square Error (RMSE), and Mean Absolute Percentage Error (MAPE).
+- **Framework:** PyTorch.
+- **Hardware:** NVIDIA RTX 5090 GPU (32 GB), Intel Xeon Platinum 8470Q CPU (25 vCPUs), and 90 GB RAM.
+- **Dataset split:** Chronological training/validation/test split of 7:2:1.
+- **Optimization:** Learning rate 0.0001 and batch size 32.
+- **Evaluation metrics:** Mean Absolute Error (MAE), Root Mean Square Error (RMSE), and Mean Absolute Percentage Error (MAPE).
 
-## 📉 Ablation & Anomaly Stability
+## 📉 Ablation & Traffic-State Analysis
 
-Why a tri-modal architecture? Our experiments explicitly demonstrate the fatal flaws of unimodal approaches during high-horizon prediction and sudden distribution shifts:
+The paper evaluates the contribution of each component on PeMS08:
 
-- **Without Rhythmic Routing (w/o FCR-ST):** Severe degradation in long-horizon prediction (120 mins) due to the inability to isolate local anomalies from global traffic inertia.
-- **Without Visual Scanning (w/o PCS-ViM):** Significant inflation in RMSE. Standard raster scanning distorts physical propagation continuity, leading to morphological extrapolation failures.
-- **Without State Control (w/o TSC):** Poor adaptation to abrupt volatility (shock-to-recovery phases). TSC explicitly acts as an evidence-driven state anchor, generating a **3.62% window-level MAE reduction** during sudden anomaly transitions.
+- **w/o FCR-ST:** Replaces dynamic frequency-community routing with static graph convolution. Prediction errors increase, particularly at the 120-minute horizon.
+- **w/o PCS-ViM:** Replaces topology-informed node ordering and visual sequence encoding with standard Euclidean raster scanning. RMSE increases, supporting the use of topology-informed scanning.
+- **w/o TSC:** Removes the MLP-based state controller and its state-guided modulation of routing and residual correction. Prediction errors increase across the evaluated horizons.
+
+The paper also analyzes TSC in a selected anomaly window. Compared with the variant without TSC, the full model achieves a **3.62% reduction in window-level MAE**, a positive MAE advantage over **65.70% of sliding steps**, and a **4.16% MAE reduction in the peak-transition region**.
 
 ## ⚡ Complexity & Efficiency
 
-The computational complexity is optimized for real-world scaling:
-1. **FCR-ST** is bottlenecked by efficient RFFT $\mathcal{O}(BNd T\log T)$ and Chebyshev filtering $\mathcal{O}(BTK|\mathcal{E}|d)$.
-2. **PCS-ViM** exploits the linear scaling of State Space Models (SSMs), executing in $\mathcal{O}(BTNd)$, completely bypassing the $\mathcal{O}((TN)^2)$ quadratic cost of Vision Transformers.
-3. **TSC** realizes state-guided modulation with lightweight MLP-based inference, with an optional $\mathcal{O}(1)$ overhead per sample by caching pre-computed EoS templates from a frozen LLM.
-Consequently, the entire multi-modal framework scales linearly $\mathcal{O}(N \cdot T)$, demonstrating high suitability for resource-constrained edge ITS deployment.
+The paper analyzes the forward-pass complexity under a fixed graph structure. Let $B$ be the batch size, $T$ the input sequence length, $N$ the number of nodes, $D_{in}$ the input feature dimension, and $d$ the hidden dimension.
+
+1. **FCR-ST:** RFFT costs approximately $\mathcal{O}(BND_{in}T\log T)$; Chebyshev graph filtering costs $\mathcal{O}(BTK_g|\mathcal{E}|d)$, where $K_g$ is the polynomial order.
+2. **PCS-ViM:** Dual-axis state-space encoding costs $\mathcal{O}(BTNd)$, and morphology-prototype matching costs $\mathcal{O}(BTNK_md)$, where $K_m$ is the number of morphology prototypes.
+3. **TSC:** The MLP-based controller costs approximately $\mathcal{O}(Bd(D_v+K_s+C)+BTNd)$, where $D_v=5$, $K_s$ is the number of state prototypes, and $C$ is the number of communities.
+
+For sparse graphs with $|\mathcal{E}|=\mathcal{O}(N)$ and fixed feature/prototype dimensions, the dominant scaling is approximately $\mathcal{O}(BNT\log T)$. Offline preprocessing, including spectral clustering and shortest-path computation, is excluded from the per-batch complexity.
 
 ## 🛠️ Getting Started
 
-### 1. Prerequisites
-- Linux or Windows (Tested on Ubuntu 20.04)
-- Python $\ge$ 3.9
-- PyTorch $\ge$ 2.0.0
-- CUDA $\ge$ 11.8
+### 1. Clone the repository
+
+The repository contains large dataset and model files managed with Git LFS. Make sure Git LFS is installed before cloning.
 
 ```bash
-# Clone the repository
-git clone https://github.com/YourUsername/SCOUT.git
-cd SCOUT
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Install Vision Mamba extensions (mamba-ssm, causal-conv1d)
-pip install causal-conv1d>=1.2.0
+git lfs install
+git clone https://github.com/JOJOJISHENGWU/WWW.git
+cd WWW
+git lfs pull
 ```
 
-### 2. PEMS08 artifact verification
+### 2. Repository contents
 
-```bash
-python eval.py --config configs/pems08.yaml --ckpt checkpoints/pems08_best.pth
+```text
+WWW/
+├── DATA/                    # Traffic datasets
+├── checkpoints/             # Model checkpoints
+├── configs/                 # Dataset/model configurations
+├── logs/                    # Training logs
+├── models/                  # FCR-ST, PCS-ViM, TSC, and model implementation
+├── reproducibility/         # Reproducibility notes and result tables
+├── scripts/                 # Training/evaluation scripts
+├── train.py                 # Training entry point
+└── SCOUT.png                # Framework illustration
 ```
 
-> Note: this anonymous repository is a method-level pseudocode package. Numerical evaluation is only valid for checkpoints produced by the same code snapshot. If keys mismatch, evaluation stops explicitly.
+The current repository snapshot includes the PEMS08 configuration, checkpoint, full training log, and reproducibility/result documentation. The exact runtime dependencies and command-line arguments should be checked against the current source files and scripts. This snapshot does not include a `requirements.txt` or a top-level `eval.py`; therefore, the former README's generic installation and `python eval.py` commands have been removed rather than retained as unverified instructions.
 
-## 🧩 Pseudocode Mapping to Paper (Reviewer-Facing)
+## 🧩 Implementation-to-Paper Mapping
 
-To avoid ambiguity during review, `models/*.py` are organized as **paper-aligned pseudocode modules**. The implementation intentionally mirrors Algorithm 1 and the equation-level semantics in the manuscript.
+The main implementation files correspond to the three components described in the paper:
 
-### Stage-1: `models/FCR_ST.py`
-- Mirrors: RFFT -> Top-$k$ periodic extraction -> community affine recalibration -> dual-kernel routing.
-- Exposed symbols: `M_comm`, `rho_comm`, `H_mod`, `H_spatial`.
+- **`models/FCR_ST.py`** — community-level spectral descriptors and local/global graph-propagation routing.
+- **`models/PCS_ViM.py`** — topology-informed node ordering, dual-axis VisionMamba encoding, and morphology correction.
+- **`models/TSC.py`** — five-dimensional traffic evidence, MLP state induction, prototype anchoring, and warmup-gated modulation.
 
-### Stage-2: `models/PCS_ViM.py`
-- Mirrors: pseudo-image construction -> diffusion-priority sorting `Pi=Argsort(q)` -> dual-axis scan -> prototype-guided residual correction.
-- Exposed symbols: `node_priority_q`, `perm_pi`, `h_scan`, `delta_y_img`.
+Additional resources:
 
-### Stage-3: `models/TSC.py`
-- Mirrors: evidence vector construction -> MLP state induction + prototype anchoring -> warmup-gated routing modulation -> bounded residual correction.
-- Exposed symbols: `v_t`, `s_ctrl`, `rho_tilde`, `delta_y_corr`.
+- **`configs/`** — dataset-specific configuration files, including `configs/pems08.yaml`.
+- **`checkpoints/pems08_best.pth`** — released PEMS08 checkpoint.
+- **`logs/pems08_train_full.log`** — PEMS08 training log.
+- **`reproducibility/REPRODUCIBILITY.md`** and **`reproducibility/RESULTS_TABLE.md`** — reproducibility notes and reported results.
 
-### Unified Aggregation: `models/SCOUT.py`
-- Performs residual branch fusion exactly as formulated:
-  `y_hat = y_fcr + lambda_img * delta_y_img + lambda_corr * delta_y_corr`
+
 
