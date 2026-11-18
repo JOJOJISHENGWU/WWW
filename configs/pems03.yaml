@@ -1,0 +1,54 @@
+dataset:
+  name: PEMS03
+  data_path: ../DATA/PEMS03/PEMS03.npz
+  adj_path: ../DATA/PEMS03/adj.npy
+  num_nodes: 358
+  num_edges: 547
+  time_steps: 26208
+  interval_minutes: 5
+
+split:
+  train: 0.7
+  val: 0.2
+  test: 0.1
+  chronological: true
+
+model:
+  seq_len: 12
+  pred_len: 1
+  d_model: 128
+  d_ff: 128
+  decoder_layers: 3
+  top_k: 3
+  gcn_hidden: 32
+  use_community: true
+
+train:
+  seed: 42
+  batch_size: 32
+  epochs: 300
+  optimizer: AdamW
+  lr: 0.0001
+  weight_decay: 0.0001
+  scheduler: ReduceLROnPlateau
+  scheduler_factor: 0.5
+  scheduler_patience: 4
+  min_lr: 0.00001
+  early_stop_patience: 5
+  grad_clip_norm: 0.5
+loss:
+  pred_l1: 1.0
+  pred_smoothl1: 0.3
+  spectral_consistency: 0.02
+  pattern_align: 0.05
+  semantic_align: 0.01
+  semantic_propagation: 0.01
+  entropy_reg: 0.01
+  routing_var_reg: -0.02
+  gcn_orthogonality: 0.01
+
+runtime:
+  device: cuda
+  num_workers: 0
+  amp: false
+

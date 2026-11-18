@@ -1,0 +1,715 @@
+使用数据集: PEMS08
+[社区感知-谱聚类] 加载社区划分: /home/zc/SCN/MM/DATA/PEMS08/community.npy
+  社区数=4, 分布=[15, 104, 41, 10]
+
+Loading weights:   0%|          | 0/100 [00:00<?, ?it/s]
+Loading weights:   1%|1         | 1/100 [00:00<00:00, 15307.68it/s, Materializing param=embeddings.LayerNorm.bias]
+Loading weights:   1%|1         | 1/100 [00:00<00:00, 7543.71it/s, Materializing param=embeddings.LayerNorm.bias] 
+Loading weights:   2%|2         | 2/100 [00:00<00:00, 8004.40it/s, Materializing param=embeddings.LayerNorm.weight]
+Loading weights:   2%|2         | 2/100 [00:00<00:00, 5507.95it/s, Materializing param=embeddings.LayerNorm.weight]
+Loading weights:   3%|3         | 3/100 [00:00<00:00, 6546.78it/s, Materializing param=embeddings.position_embeddings.weight]
+Loading weights:   3%|3         | 3/100 [00:00<00:00, 2389.01it/s, Materializing param=embeddings.position_embeddings.weight]
+Loading weights:   4%|4         | 4/100 [00:00<00:00, 2937.70it/s, Materializing param=embeddings.word_embeddings.weight]    
+Loading weights:   4%|4         | 4/100 [00:00<00:00, 1871.20it/s, Materializing param=embeddings.word_embeddings.weight]
+Loading weights:   5%|5         | 5/100 [00:00<00:00, 1711.26it/s, Materializing param=transformer.layer.0.attention.k_lin.bias]
+Loading weights:   5%|5         | 5/100 [00:00<00:00, 953.81it/s, Materializing param=transformer.layer.0.attention.k_lin.bias] 
+Loading weights:   6%|6         | 6/100 [00:00<00:00, 1122.67it/s, Materializing param=transformer.layer.0.attention.k_lin.weight]
+Loading weights:   6%|6         | 6/100 [00:00<00:00, 857.76it/s, Materializing param=transformer.layer.0.attention.k_lin.weight] 
+Loading weights:   7%|7         | 7/100 [00:00<00:00, 982.63it/s, Materializing param=transformer.layer.0.attention.out_lin.bias]
+Loading weights:   7%|7         | 7/100 [00:00<00:00, 976.85it/s, Materializing param=transformer.layer.0.attention.out_lin.bias]
+Loading weights:   8%|8         | 8/100 [00:00<00:00, 1103.91it/s, Materializing param=transformer.layer.0.attention.out_lin.weight]
+Loading weights:   8%|8         | 8/100 [00:00<00:00, 838.27it/s, Materializing param=transformer.layer.0.attention.out_lin.weight] 
+Loading weights:   9%|9         | 9/100 [00:00<00:00, 863.60it/s, Materializing param=transformer.layer.0.attention.q_lin.bias]    
+Loading weights:   9%|9         | 9/100 [00:00<00:00, 860.04it/s, Materializing param=transformer.layer.0.attention.q_lin.bias]
+Loading weights:  10%|#         | 10/100 [00:00<00:00, 947.46it/s, Materializing param=transformer.layer.0.attention.q_lin.weight]
+Loading weights:  10%|#         | 10/100 [00:00<00:00, 824.55it/s, Materializing param=transformer.layer.0.attention.q_lin.weight]
+Loading weights:  11%|#1        | 11/100 [00:00<00:00, 726.50it/s, Materializing param=transformer.layer.0.attention.v_lin.bias]  
+Loading weights:  11%|#1        | 11/100 [00:00<00:00, 720.63it/s, Materializing param=transformer.layer.0.attention.v_lin.bias]
+Loading weights:  12%|#2        | 12/100 [00:00<00:00, 781.88it/s, Materializing param=transformer.layer.0.attention.v_lin.weight]
+Loading weights:  12%|#2        | 12/100 [00:00<00:00, 779.77it/s, Materializing param=transformer.layer.0.attention.v_lin.weight]
+Loading weights:  13%|#3        | 13/100 [00:00<00:00, 837.77it/s, Materializing param=transformer.layer.0.ffn.lin1.bias]         
+Loading weights:  13%|#3        | 13/100 [00:00<00:00, 728.31it/s, Materializing param=transformer.layer.0.ffn.lin1.bias]
+Loading weights:  14%|#4        | 14/100 [00:00<00:00, 751.19it/s, Materializing param=transformer.layer.0.ffn.lin1.weight]
+Loading weights:  14%|#4        | 14/100 [00:00<00:00, 693.92it/s, Materializing param=transformer.layer.0.ffn.lin1.weight]
+Loading weights:  15%|#5        | 15/100 [00:00<00:00, 734.58it/s, Materializing param=transformer.layer.0.ffn.lin2.bias]  
+Loading weights:  15%|#5        | 15/100 [00:00<00:00, 733.10it/s, Materializing param=transformer.layer.0.ffn.lin2.bias]
+Loading weights:  16%|#6        | 16/100 [00:00<00:00, 752.54it/s, Materializing param=transformer.layer.0.ffn.lin2.weight]
+Loading weights:  16%|#6        | 16/100 [00:00<00:00, 658.69it/s, Materializing param=transformer.layer.0.ffn.lin2.weight]
+Loading weights:  17%|#7        | 17/100 [00:00<00:00, 676.99it/s, Materializing param=transformer.layer.0.output_layer_norm.bias]
+Loading weights:  17%|#7        | 17/100 [00:00<00:00, 674.64it/s, Materializing param=transformer.layer.0.output_layer_norm.bias]
+Loading weights:  18%|#8        | 18/100 [00:00<00:00, 709.61it/s, Materializing param=transformer.layer.0.output_layer_norm.weight]
+Loading weights:  18%|#8        | 18/100 [00:00<00:00, 707.38it/s, Materializing param=transformer.layer.0.output_layer_norm.weight]
+Loading weights:  19%|#9        | 19/100 [00:00<00:00, 744.62it/s, Materializing param=transformer.layer.0.sa_layer_norm.bias]      
+Loading weights:  19%|#9        | 19/100 [00:00<00:00, 743.53it/s, Materializing param=transformer.layer.0.sa_layer_norm.bias]
+Loading weights:  20%|##        | 20/100 [00:00<00:00, 780.69it/s, Materializing param=transformer.layer.0.sa_layer_norm.weight]
+Loading weights:  20%|##        | 20/100 [00:00<00:00, 779.57it/s, Materializing param=transformer.layer.0.sa_layer_norm.weight]
+Loading weights:  21%|##1       | 21/100 [00:00<00:00, 816.53it/s, Materializing param=transformer.layer.1.attention.k_lin.bias]
+Loading weights:  21%|##1       | 21/100 [00:00<00:00, 815.36it/s, Materializing param=transformer.layer.1.attention.k_lin.bias]
+Loading weights:  22%|##2       | 22/100 [00:00<00:00, 852.00it/s, Materializing param=transformer.layer.1.attention.k_lin.weight]
+Loading weights:  22%|##2       | 22/100 [00:00<00:00, 850.80it/s, Materializing param=transformer.layer.1.attention.k_lin.weight]
+Loading weights:  23%|##3       | 23/100 [00:00<00:00, 887.25it/s, Materializing param=transformer.layer.1.attention.out_lin.bias]
+Loading weights:  23%|##3       | 23/100 [00:00<00:00, 886.00it/s, Materializing param=transformer.layer.1.attention.out_lin.bias]
+Loading weights:  24%|##4       | 24/100 [00:00<00:00, 922.19it/s, Materializing param=transformer.layer.1.attention.out_lin.weight]
+Loading weights:  24%|##4       | 24/100 [00:00<00:00, 920.91it/s, Materializing param=transformer.layer.1.attention.out_lin.weight]
+Loading weights:  25%|##5       | 25/100 [00:00<00:00, 956.79it/s, Materializing param=transformer.layer.1.attention.q_lin.bias]    
+Loading weights:  25%|##5       | 25/100 [00:00<00:00, 955.45it/s, Materializing param=transformer.layer.1.attention.q_lin.bias]
+Loading weights:  26%|##6       | 26/100 [00:00<00:00, 991.21it/s, Materializing param=transformer.layer.1.attention.q_lin.weight]
+Loading weights:  26%|##6       | 26/100 [00:00<00:00, 989.78it/s, Materializing param=transformer.layer.1.attention.q_lin.weight]
+Loading weights:  27%|##7       | 27/100 [00:00<00:00, 1025.30it/s, Materializing param=transformer.layer.1.attention.v_lin.bias] 
+Loading weights:  27%|##7       | 27/100 [00:00<00:00, 1023.88it/s, Materializing param=transformer.layer.1.attention.v_lin.bias]
+Loading weights:  28%|##8       | 28/100 [00:00<00:00, 1059.19it/s, Materializing param=transformer.layer.1.attention.v_lin.weight]
+Loading weights:  28%|##8       | 28/100 [00:00<00:00, 1057.70it/s, Materializing param=transformer.layer.1.attention.v_lin.weight]
+Loading weights:  29%|##9       | 29/100 [00:00<00:00, 1092.76it/s, Materializing param=transformer.layer.1.ffn.lin1.bias]         
+Loading weights:  29%|##9       | 29/100 [00:00<00:00, 1091.17it/s, Materializing param=transformer.layer.1.ffn.lin1.bias]
+Loading weights:  30%|###       | 30/100 [00:00<00:00, 1126.03it/s, Materializing param=transformer.layer.1.ffn.lin1.weight]
+Loading weights:  30%|###       | 30/100 [00:00<00:00, 1124.28it/s, Materializing param=transformer.layer.1.ffn.lin1.weight]
+Loading weights:  31%|###1      | 31/100 [00:00<00:00, 1158.97it/s, Materializing param=transformer.layer.1.ffn.lin2.bias]  
+Loading weights:  31%|###1      | 31/100 [00:00<00:00, 1157.38it/s, Materializing param=transformer.layer.1.ffn.lin2.bias]
+Loading weights:  32%|###2      | 32/100 [00:00<00:00, 1191.92it/s, Materializing param=transformer.layer.1.ffn.lin2.weight]
+Loading weights:  32%|###2      | 32/100 [00:00<00:00, 1190.16it/s, Materializing param=transformer.layer.1.ffn.lin2.weight]
+Loading weights:  33%|###3      | 33/100 [00:00<00:00, 1224.42it/s, Materializing param=transformer.layer.1.output_layer_norm.bias]
+Loading weights:  33%|###3      | 33/100 [00:00<00:00, 1222.74it/s, Materializing param=transformer.layer.1.output_layer_norm.bias]
+Loading weights:  34%|###4      | 34/100 [00:00<00:00, 1256.79it/s, Materializing param=transformer.layer.1.output_layer_norm.weight]
+Loading weights:  34%|###4      | 34/100 [00:00<00:00, 1255.09it/s, Materializing param=transformer.layer.1.output_layer_norm.weight]
+Loading weights:  35%|###5      | 35/100 [00:00<00:00, 1289.01it/s, Materializing param=transformer.layer.1.sa_layer_norm.bias]      
+Loading weights:  35%|###5      | 35/100 [00:00<00:00, 1287.31it/s, Materializing param=transformer.layer.1.sa_layer_norm.bias]
+Loading weights:  36%|###6      | 36/100 [00:00<00:00, 1321.08it/s, Materializing param=transformer.layer.1.sa_layer_norm.weight]
+Loading weights:  36%|###6      | 36/100 [00:00<00:00, 1319.36it/s, Materializing param=transformer.layer.1.sa_layer_norm.weight]
+Loading weights:  37%|###7      | 37/100 [00:00<00:00, 1352.92it/s, Materializing param=transformer.layer.2.attention.k_lin.bias]
+Loading weights:  37%|###7      | 37/100 [00:00<00:00, 1351.08it/s, Materializing param=transformer.layer.2.attention.k_lin.bias]
+Loading weights:  38%|###8      | 38/100 [00:00<00:00, 1384.35it/s, Materializing param=transformer.layer.2.attention.k_lin.weight]
+Loading weights:  38%|###8      | 38/100 [00:00<00:00, 1382.52it/s, Materializing param=transformer.layer.2.attention.k_lin.weight]
+Loading weights:  39%|###9      | 39/100 [00:00<00:00, 1415.63it/s, Materializing param=transformer.layer.2.attention.out_lin.bias]
+Loading weights:  39%|###9      | 39/100 [00:00<00:00, 1413.72it/s, Materializing param=transformer.layer.2.attention.out_lin.bias]
+Loading weights:  40%|####      | 40/100 [00:00<00:00, 1446.39it/s, Materializing param=transformer.layer.2.attention.out_lin.weight]
+Loading weights:  40%|####      | 40/100 [00:00<00:00, 1444.43it/s, Materializing param=transformer.layer.2.attention.out_lin.weight]
+Loading weights:  41%|####1     | 41/100 [00:00<00:00, 1477.16it/s, Materializing param=transformer.layer.2.attention.q_lin.bias]    
+Loading weights:  41%|####1     | 41/100 [00:00<00:00, 1475.18it/s, Materializing param=transformer.layer.2.attention.q_lin.bias]
+Loading weights:  42%|####2     | 42/100 [00:00<00:00, 1507.71it/s, Materializing param=transformer.layer.2.attention.q_lin.weight]
+Loading weights:  42%|####2     | 42/100 [00:00<00:00, 1505.78it/s, Materializing param=transformer.layer.2.attention.q_lin.weight]
+Loading weights:  43%|####3     | 43/100 [00:00<00:00, 1538.14it/s, Materializing param=transformer.layer.2.attention.v_lin.bias]  
+Loading weights:  43%|####3     | 43/100 [00:00<00:00, 1536.14it/s, Materializing param=transformer.layer.2.attention.v_lin.bias]
+Loading weights:  44%|####4     | 44/100 [00:00<00:00, 1568.31it/s, Materializing param=transformer.layer.2.attention.v_lin.weight]
+Loading weights:  44%|####4     | 44/100 [00:00<00:00, 1566.30it/s, Materializing param=transformer.layer.2.attention.v_lin.weight]
+Loading weights:  45%|####5     | 45/100 [00:00<00:00, 1598.28it/s, Materializing param=transformer.layer.2.ffn.lin1.bias]         
+Loading weights:  45%|####5     | 45/100 [00:00<00:00, 1596.21it/s, Materializing param=transformer.layer.2.ffn.lin1.bias]
+Loading weights:  46%|####6     | 46/100 [00:00<00:00, 1627.74it/s, Materializing param=transformer.layer.2.ffn.lin1.weight]
+Loading weights:  46%|####6     | 46/100 [00:00<00:00, 1625.63it/s, Materializing param=transformer.layer.2.ffn.lin1.weight]
+Loading weights:  47%|####6     | 47/100 [00:00<00:00, 1657.26it/s, Materializing param=transformer.layer.2.ffn.lin2.bias]  
+Loading weights:  47%|####6     | 47/100 [00:00<00:00, 1655.04it/s, Materializing param=transformer.layer.2.ffn.lin2.bias]
+Loading weights:  48%|####8     | 48/100 [00:00<00:00, 1686.17it/s, Materializing param=transformer.layer.2.ffn.lin2.weight]
+Loading weights:  48%|####8     | 48/100 [00:00<00:00, 1683.95it/s, Materializing param=transformer.layer.2.ffn.lin2.weight]
+Loading weights:  49%|####9     | 49/100 [00:00<00:00, 1715.05it/s, Materializing param=transformer.layer.2.output_layer_norm.bias]
+Loading weights:  49%|####9     | 49/100 [00:00<00:00, 1712.80it/s, Materializing param=transformer.layer.2.output_layer_norm.bias]
+Loading weights:  50%|#####     | 50/100 [00:00<00:00, 1743.83it/s, Materializing param=transformer.layer.2.output_layer_norm.weight]
+Loading weights:  50%|#####     | 50/100 [00:00<00:00, 1741.53it/s, Materializing param=transformer.layer.2.output_layer_norm.weight]
+Loading weights:  51%|#####1    | 51/100 [00:00<00:00, 1772.39it/s, Materializing param=transformer.layer.2.sa_layer_norm.bias]      
+Loading weights:  51%|#####1    | 51/100 [00:00<00:00, 1769.68it/s, Materializing param=transformer.layer.2.sa_layer_norm.bias]
+Loading weights:  52%|#####2    | 52/100 [00:00<00:00, 1800.25it/s, Materializing param=transformer.layer.2.sa_layer_norm.weight]
+Loading weights:  52%|#####2    | 52/100 [00:00<00:00, 1797.96it/s, Materializing param=transformer.layer.2.sa_layer_norm.weight]
+Loading weights:  53%|#####3    | 53/100 [00:00<00:00, 1828.49it/s, Materializing param=transformer.layer.3.attention.k_lin.bias]
+Loading weights:  53%|#####3    | 53/100 [00:00<00:00, 1826.20it/s, Materializing param=transformer.layer.3.attention.k_lin.bias]
+Loading weights:  54%|#####4    | 54/100 [00:00<00:00, 1856.51it/s, Materializing param=transformer.layer.3.attention.k_lin.weight]
+Loading weights:  54%|#####4    | 54/100 [00:00<00:00, 1854.17it/s, Materializing param=transformer.layer.3.attention.k_lin.weight]
+Loading weights:  55%|#####5    | 55/100 [00:00<00:00, 1884.30it/s, Materializing param=transformer.layer.3.attention.out_lin.bias]
+Loading weights:  55%|#####5    | 55/100 [00:00<00:00, 1881.91it/s, Materializing param=transformer.layer.3.attention.out_lin.bias]
+Loading weights:  56%|#####6    | 56/100 [00:00<00:00, 1911.70it/s, Materializing param=transformer.layer.3.attention.out_lin.weight]
+Loading weights:  56%|#####6    | 56/100 [00:00<00:00, 1909.26it/s, Materializing param=transformer.layer.3.attention.out_lin.weight]
+Loading weights:  57%|#####6    | 57/100 [00:00<00:00, 1939.05it/s, Materializing param=transformer.layer.3.attention.q_lin.bias]    
+Loading weights:  57%|#####6    | 57/100 [00:00<00:00, 1936.55it/s, Materializing param=transformer.layer.3.attention.q_lin.bias]
+Loading weights:  58%|#####8    | 58/100 [00:00<00:00, 1966.13it/s, Materializing param=transformer.layer.3.attention.q_lin.weight]
+Loading weights:  58%|#####8    | 58/100 [00:00<00:00, 1963.61it/s, Materializing param=transformer.layer.3.attention.q_lin.weight]
+Loading weights:  59%|#####8    | 59/100 [00:00<00:00, 1993.07it/s, Materializing param=transformer.layer.3.attention.v_lin.bias]  
+Loading weights:  59%|#####8    | 59/100 [00:00<00:00, 1990.60it/s, Materializing param=transformer.layer.3.attention.v_lin.bias]
+Loading weights:  60%|######    | 60/100 [00:00<00:00, 2019.96it/s, Materializing param=transformer.layer.3.attention.v_lin.weight]
+Loading weights:  60%|######    | 60/100 [00:00<00:00, 2017.40it/s, Materializing param=transformer.layer.3.attention.v_lin.weight]
+Loading weights:  61%|######1   | 61/100 [00:00<00:00, 2046.48it/s, Materializing param=transformer.layer.3.ffn.lin1.bias]         
+Loading weights:  61%|######1   | 61/100 [00:00<00:00, 2043.91it/s, Materializing param=transformer.layer.3.ffn.lin1.bias]
+Loading weights:  62%|######2   | 62/100 [00:00<00:00, 2072.66it/s, Materializing param=transformer.layer.3.ffn.lin1.weight]
+Loading weights:  62%|######2   | 62/100 [00:00<00:00, 2070.07it/s, Materializing param=transformer.layer.3.ffn.lin1.weight]
+Loading weights:  63%|######3   | 63/100 [00:00<00:00, 2098.92it/s, Materializing param=transformer.layer.3.ffn.lin2.bias]  
+Loading weights:  63%|######3   | 63/100 [00:00<00:00, 2096.32it/s, Materializing param=transformer.layer.3.ffn.lin2.bias]
+Loading weights:  64%|######4   | 64/100 [00:00<00:00, 2124.74it/s, Materializing param=transformer.layer.3.ffn.lin2.weight]
+Loading weights:  64%|######4   | 64/100 [00:00<00:00, 2122.17it/s, Materializing param=transformer.layer.3.ffn.lin2.weight]
+Loading weights:  65%|######5   | 65/100 [00:00<00:00, 2150.74it/s, Materializing param=transformer.layer.3.output_layer_norm.bias]
+Loading weights:  65%|######5   | 65/100 [00:00<00:00, 2148.08it/s, Materializing param=transformer.layer.3.output_layer_norm.bias]
+Loading weights:  66%|######6   | 66/100 [00:00<00:00, 2176.50it/s, Materializing param=transformer.layer.3.output_layer_norm.weight]
+Loading weights:  66%|######6   | 66/100 [00:00<00:00, 2173.90it/s, Materializing param=transformer.layer.3.output_layer_norm.weight]
+Loading weights:  67%|######7   | 67/100 [00:00<00:00, 2202.36it/s, Materializing param=transformer.layer.3.sa_layer_norm.bias]      
+Loading weights:  67%|######7   | 67/100 [00:00<00:00, 2199.68it/s, Materializing param=transformer.layer.3.sa_layer_norm.bias]
+Loading weights:  68%|######8   | 68/100 [00:00<00:00, 2227.96it/s, Materializing param=transformer.layer.3.sa_layer_norm.weight]
+Loading weights:  68%|######8   | 68/100 [00:00<00:00, 2225.27it/s, Materializing param=transformer.layer.3.sa_layer_norm.weight]
+Loading weights:  69%|######9   | 69/100 [00:00<00:00, 2253.46it/s, Materializing param=transformer.layer.4.attention.k_lin.bias]
+Loading weights:  69%|######9   | 69/100 [00:00<00:00, 2250.76it/s, Materializing param=transformer.layer.4.attention.k_lin.bias]
+Loading weights:  70%|#######   | 70/100 [00:00<00:00, 2278.43it/s, Materializing param=transformer.layer.4.attention.k_lin.weight]
+Loading weights:  70%|#######   | 70/100 [00:00<00:00, 2275.63it/s, Materializing param=transformer.layer.4.attention.k_lin.weight]
+Loading weights:  71%|#######1  | 71/100 [00:00<00:00, 2303.28it/s, Materializing param=transformer.layer.4.attention.out_lin.bias]
+Loading weights:  71%|#######1  | 71/100 [00:00<00:00, 2300.56it/s, Materializing param=transformer.layer.4.attention.out_lin.bias]
+Loading weights:  72%|#######2  | 72/100 [00:00<00:00, 2328.16it/s, Materializing param=transformer.layer.4.attention.out_lin.weight]
+Loading weights:  72%|#######2  | 72/100 [00:00<00:00, 2325.36it/s, Materializing param=transformer.layer.4.attention.out_lin.weight]
+Loading weights:  73%|#######3  | 73/100 [00:00<00:00, 2352.80it/s, Materializing param=transformer.layer.4.attention.q_lin.bias]    
+Loading weights:  73%|#######3  | 73/100 [00:00<00:00, 2350.04it/s, Materializing param=transformer.layer.4.attention.q_lin.bias]
+Loading weights:  74%|#######4  | 74/100 [00:00<00:00, 2377.38it/s, Materializing param=transformer.layer.4.attention.q_lin.weight]
+Loading weights:  74%|#######4  | 74/100 [00:00<00:00, 2374.59it/s, Materializing param=transformer.layer.4.attention.q_lin.weight]
+Loading weights:  75%|#######5  | 75/100 [00:00<00:00, 2401.83it/s, Materializing param=transformer.layer.4.attention.v_lin.bias]  
+Loading weights:  75%|#######5  | 75/100 [00:00<00:00, 2399.05it/s, Materializing param=transformer.layer.4.attention.v_lin.bias]
+Loading weights:  76%|#######6  | 76/100 [00:00<00:00, 2426.04it/s, Materializing param=transformer.layer.4.attention.v_lin.weight]
+Loading weights:  76%|#######6  | 76/100 [00:00<00:00, 2423.26it/s, Materializing param=transformer.layer.4.attention.v_lin.weight]
+Loading weights:  77%|#######7  | 77/100 [00:00<00:00, 2450.13it/s, Materializing param=transformer.layer.4.ffn.lin1.bias]         
+Loading weights:  77%|#######7  | 77/100 [00:00<00:00, 2446.99it/s, Materializing param=transformer.layer.4.ffn.lin1.bias]
+Loading weights:  78%|#######8  | 78/100 [00:00<00:00, 2473.77it/s, Materializing param=transformer.layer.4.ffn.lin1.weight]
+Loading weights:  78%|#######8  | 78/100 [00:00<00:00, 2470.95it/s, Materializing param=transformer.layer.4.ffn.lin1.weight]
+Loading weights:  79%|#######9  | 79/100 [00:00<00:00, 2497.66it/s, Materializing param=transformer.layer.4.ffn.lin2.bias]  
+Loading weights:  79%|#######9  | 79/100 [00:00<00:00, 2494.58it/s, Materializing param=transformer.layer.4.ffn.lin2.bias]
+Loading weights:  80%|########  | 80/100 [00:00<00:00, 2521.07it/s, Materializing param=transformer.layer.4.ffn.lin2.weight]
+Loading weights:  80%|########  | 80/100 [00:00<00:00, 2518.21it/s, Materializing param=transformer.layer.4.ffn.lin2.weight]
+Loading weights:  81%|########1 | 81/100 [00:00<00:00, 2544.69it/s, Materializing param=transformer.layer.4.output_layer_norm.bias]
+Loading weights:  81%|########1 | 81/100 [00:00<00:00, 2541.85it/s, Materializing param=transformer.layer.4.output_layer_norm.bias]
+Loading weights:  82%|########2 | 82/100 [00:00<00:00, 2568.27it/s, Materializing param=transformer.layer.4.output_layer_norm.weight]
+Loading weights:  82%|########2 | 82/100 [00:00<00:00, 2565.32it/s, Materializing param=transformer.layer.4.output_layer_norm.weight]
+Loading weights:  83%|########2 | 83/100 [00:00<00:00, 2591.62it/s, Materializing param=transformer.layer.4.sa_layer_norm.bias]      
+Loading weights:  83%|########2 | 83/100 [00:00<00:00, 2588.61it/s, Materializing param=transformer.layer.4.sa_layer_norm.bias]
+Loading weights:  84%|########4 | 84/100 [00:00<00:00, 2614.69it/s, Materializing param=transformer.layer.4.sa_layer_norm.weight]
+Loading weights:  84%|########4 | 84/100 [00:00<00:00, 2611.74it/s, Materializing param=transformer.layer.4.sa_layer_norm.weight]
+Loading weights:  85%|########5 | 85/100 [00:00<00:00, 2637.60it/s, Materializing param=transformer.layer.5.attention.k_lin.bias]
+Loading weights:  85%|########5 | 85/100 [00:00<00:00, 2634.57it/s, Materializing param=transformer.layer.5.attention.k_lin.bias]
+Loading weights:  86%|########6 | 86/100 [00:00<00:00, 2660.36it/s, Materializing param=transformer.layer.5.attention.k_lin.weight]
+Loading weights:  86%|########6 | 86/100 [00:00<00:00, 2657.32it/s, Materializing param=transformer.layer.5.attention.k_lin.weight]
+Loading weights:  87%|########7 | 87/100 [00:00<00:00, 2682.92it/s, Materializing param=transformer.layer.5.attention.out_lin.bias]
+Loading weights:  87%|########7 | 87/100 [00:00<00:00, 2679.85it/s, Materializing param=transformer.layer.5.attention.out_lin.bias]
+Loading weights:  88%|########8 | 88/100 [00:00<00:00, 2705.47it/s, Materializing param=transformer.layer.5.attention.out_lin.weight]
+Loading weights:  88%|########8 | 88/100 [00:00<00:00, 2702.44it/s, Materializing param=transformer.layer.5.attention.out_lin.weight]
+Loading weights:  89%|########9 | 89/100 [00:00<00:00, 2727.81it/s, Materializing param=transformer.layer.5.attention.q_lin.bias]    
+Loading weights:  89%|########9 | 89/100 [00:00<00:00, 2724.83it/s, Materializing param=transformer.layer.5.attention.q_lin.bias]
+Loading weights:  90%|######### | 90/100 [00:00<00:00, 2750.14it/s, Materializing param=transformer.layer.5.attention.q_lin.weight]
+Loading weights:  90%|######### | 90/100 [00:00<00:00, 2747.10it/s, Materializing param=transformer.layer.5.attention.q_lin.weight]
+Loading weights:  91%|#########1| 91/100 [00:00<00:00, 2771.86it/s, Materializing param=transformer.layer.5.attention.v_lin.bias]  
+Loading weights:  91%|#########1| 91/100 [00:00<00:00, 2768.62it/s, Materializing param=transformer.layer.5.attention.v_lin.bias]
+Loading weights:  92%|#########2| 92/100 [00:00<00:00, 2793.69it/s, Materializing param=transformer.layer.5.attention.v_lin.weight]
+Loading weights:  92%|#########2| 92/100 [00:00<00:00, 2790.56it/s, Materializing param=transformer.layer.5.attention.v_lin.weight]
+Loading weights:  93%|#########3| 93/100 [00:00<00:00, 2815.40it/s, Materializing param=transformer.layer.5.ffn.lin1.bias]         
+Loading weights:  93%|#########3| 93/100 [00:00<00:00, 2811.99it/s, Materializing param=transformer.layer.5.ffn.lin1.bias]
+Loading weights:  94%|#########3| 94/100 [00:00<00:00, 2836.62it/s, Materializing param=transformer.layer.5.ffn.lin1.weight]
+Loading weights:  94%|#########3| 94/100 [00:00<00:00, 2833.54it/s, Materializing param=transformer.layer.5.ffn.lin1.weight]
+Loading weights:  95%|#########5| 95/100 [00:00<00:00, 2858.20it/s, Materializing param=transformer.layer.5.ffn.lin2.bias]  
+Loading weights:  95%|#########5| 95/100 [00:00<00:00, 2854.84it/s, Materializing param=transformer.layer.5.ffn.lin2.bias]
+Loading weights:  96%|#########6| 96/100 [00:00<00:00, 2879.41it/s, Materializing param=transformer.layer.5.ffn.lin2.weight]
+Loading weights:  96%|#########6| 96/100 [00:00<00:00, 2876.30it/s, Materializing param=transformer.layer.5.ffn.lin2.weight]
+Loading weights:  97%|#########7| 97/100 [00:00<00:00, 2900.81it/s, Materializing param=transformer.layer.5.output_layer_norm.bias]
+Loading weights:  97%|#########7| 97/100 [00:00<00:00, 2897.67it/s, Materializing param=transformer.layer.5.output_layer_norm.bias]
+Loading weights:  98%|#########8| 98/100 [00:00<00:00, 2922.05it/s, Materializing param=transformer.layer.5.output_layer_norm.weight]
+Loading weights:  98%|#########8| 98/100 [00:00<00:00, 2918.79it/s, Materializing param=transformer.layer.5.output_layer_norm.weight]
+Loading weights:  99%|#########9| 99/100 [00:00<00:00, 2942.93it/s, Materializing param=transformer.layer.5.sa_layer_norm.bias]      
+Loading weights:  99%|#########9| 99/100 [00:00<00:00, 2939.81it/s, Materializing param=transformer.layer.5.sa_layer_norm.bias]
+Loading weights: 100%|##########| 100/100 [00:00<00:00, 2963.88it/s, Materializing param=transformer.layer.5.sa_layer_norm.weight]
+Loading weights: 100%|##########| 100/100 [00:00<00:00, 2960.70it/s, Materializing param=transformer.layer.5.sa_layer_norm.weight]
+Loading weights: 100%|##########| 100/100 [00:00<00:00, 2952.88it/s, Materializing param=transformer.layer.5.sa_layer_norm.weight]
+[TESC] Frozen LLM load failed, fallback enabled. reason='_Tee' object has no attribute 'isatty'
+
+[模型结构] 模型总参数量: 5,538,961
+[模型结构] STModel 已重构: 节点独立时序处理 (Batch x Nodes) + 频率自适应双核GCN
+[多模态-图像] 使用本地 MambaBlock 的 Vision-Mamba 编码器: 深度=2, 尺度=[1, 2, 4]
+[ContextModulation] Active! Gamma mean: 0.0098, Beta mean: -0.0306
+[CRN调试] tau=20.000 | alpha_comm mean=0.250 std=0.379
+[CRN调试] tau=20.000 | alpha_comm mean=0.250 std=0.386
+[SCB调试] inter_per_comm=[0.04699999839067459, 0.04699999839067459, 0.04699999839067459, 0.04699999839067459]
+[DCR-GCN调试] Batch #1: diff_ratio=1.2821 | alpha_mean=0.264 alpha_std=0.388 | inter_per_comm=[0.04699999839067459, 0.04699999839067459, 0.04699999839067459, 0.04699999839067459]
+[Fusion调试] step=1 warm=0.005 beta=0.300 beta_eff=0.002 | z mean=0.500, std=0.063
+[Fusion调试] |out-out_time|_MAE=0.0002
+[Alpha调试] alpha_node mean=0.264, std=0.388
+[Alpha调试|Comm] alpha_comm mean=0.251, std=0.387
+[多模态融合] step=1 动态权重: st=0.854, img=0.146, txt=0.000
+[模式分布] step=1 主导模式: [5, 3, 0], 权重=[0.07396254688501358, 0.06776731461286545, 0.06725476682186127]
+[CRN调试] tau=20.000 | alpha_comm mean=0.250 std=0.389
+[SCB调试] inter_per_comm=[0.04699999839067459, 0.04699999839067459, 0.04699999839067459, 0.04699999839067459]
+[DCR-GCN调试] Batch #2: diff_ratio=1.2539 | alpha_mean=0.237 alpha_std=0.367 | inter_per_comm=[0.04699999839067459, 0.04699999839067459, 0.04699999839067459, 0.04699999839067459]
+[Fusion调试] step=2 warm=0.010 beta=0.299 beta_eff=0.004 | z mean=0.491, std=0.063
+[Fusion调试] |out-out_time|_MAE=0.0003
+[Alpha调试] alpha_node mean=0.237, std=0.367
+[Alpha调试|Comm] alpha_comm mean=0.251, std=0.382
+[多模态融合] step=2 动态权重: st=0.859, img=0.141, txt=0.000
+[模式分布] step=2 主导模式: [9, 3, 4], 权重=[0.08091484010219574, 0.07668831944465637, 0.07279476523399353]
+[SCB调试] inter_per_comm=[0.04699999839067459, 0.04699999839067459, 0.04699999839067459, 0.04699999839067459]
+[DCR-GCN调试] Batch #3: diff_ratio=1.2733 | alpha_mean=0.231 alpha_std=0.358 | inter_per_comm=[0.04699999839067459, 0.04699999839067459, 0.04699999839067459, 0.04699999839067459]
+[Fusion调试] step=3 warm=0.015 beta=0.299 beta_eff=0.006 | z mean=0.484, std=0.058
+[Fusion调试] |out-out_time|_MAE=0.0005
+[Alpha调试] alpha_node mean=0.231, std=0.358
+[Alpha调试|Comm] alpha_comm mean=0.251, std=0.375
+[多模态融合] step=3 动态权重: st=0.849, img=0.151, txt=0.000
+[模式分布] step=3 主导模式: [5, 7, 11], 权重=[0.07715576142072678, 0.07666724920272827, 0.06769634783267975]
+Epoch 1/300 | Batch 26/261 | Loss: 0.2474 | OrthoLoss: 0.0000
+Epoch 1/300 | Batch 52/261 | Loss: 0.1980 | OrthoLoss: 0.0007
+Epoch 1/300 | Batch 78/261 | Loss: 0.1802 | OrthoLoss: 0.0032
+Epoch 1/300 | Batch 104/261 | Loss: 0.1690 | OrthoLoss: 0.0001
+Epoch 1/300 | Batch 130/261 | Loss: 0.1651 | OrthoLoss: 0.0000
+Epoch 1/300 | Batch 156/261 | Loss: 0.1420 | OrthoLoss: 0.0000
+Epoch 1/300 | Batch 182/261 | Loss: 0.1507 | OrthoLoss: 0.0001
+Epoch 1/300 | Batch 208/261 | Loss: 0.1519 | OrthoLoss: 0.0000
+Epoch 1/300 | Batch 234/261 | Loss: 0.1562 | OrthoLoss: 0.0000
+Epoch 1/300 | Batch 260/261 | Loss: 0.1548 | OrthoLoss: 0.0002
+[PEMS08] d_model=112, layers=5 | Epoch 1: MAE=13.9245, MAPE=7.60%, RMSE=21.5965, lr=1.0e-03 | beta_eff_mean=0.2624, inj_mean=0.0920, z_mean=0.528, alphaC_mean=[0.24667508900165558, 0.22797709703445435, 0.24062448740005493, 0.2830551266670227]
+Epoch 2/300 | Batch 26/261 | Loss: 0.1481 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 52/261 | Loss: 0.1458 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 78/261 | Loss: 0.1466 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 104/261 | Loss: 0.1531 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 130/261 | Loss: 0.1423 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 156/261 | Loss: 0.1437 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 182/261 | Loss: 0.1491 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 208/261 | Loss: 0.1579 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 234/261 | Loss: 0.1531 | OrthoLoss: 0.0000
+Epoch 2/300 | Batch 260/261 | Loss: 0.1548 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 2: MAE=13.4526, MAPE=7.49%, RMSE=21.0919, lr=1.0e-03 | beta_eff_mean=0.4096, inj_mean=0.1225, z_mean=0.553, alphaC_mean=[0.25355473160743713, 0.22522220015525818, 0.23147538304328918, 0.27949008345603943]
+Epoch 3/300 | Batch 26/261 | Loss: 0.1422 | OrthoLoss: 0.0000
+Epoch 3/300 | Batch 52/261 | Loss: 0.1538 | OrthoLoss: 0.0000
+Epoch 3/300 | Batch 78/261 | Loss: 0.1427 | OrthoLoss: 0.0000
+Epoch 3/300 | Batch 104/261 | Loss: 0.1786 | OrthoLoss: 0.0002
+Epoch 3/300 | Batch 130/261 | Loss: 0.1467 | OrthoLoss: 0.0001
+Epoch 3/300 | Batch 156/261 | Loss: 0.1377 | OrthoLoss: 0.0001
+Epoch 3/300 | Batch 182/261 | Loss: 0.1473 | OrthoLoss: 0.0000
+Epoch 3/300 | Batch 208/261 | Loss: 0.1588 | OrthoLoss: 0.0000
+Epoch 3/300 | Batch 234/261 | Loss: 0.1562 | OrthoLoss: 0.0000
+Epoch 3/300 | Batch 260/261 | Loss: 0.1478 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 3: MAE=13.3176, MAPE=7.44%, RMSE=20.8459, lr=1.0e-03 | beta_eff_mean=0.4112, inj_mean=0.1136, z_mean=0.615, alphaC_mean=[0.24151001870632172, 0.22949697077274323, 0.22744397819042206, 0.2875443696975708]
+Epoch 4/300 | Batch 26/261 | Loss: 0.1383 | OrthoLoss: 0.0000
+Epoch 4/300 | Batch 52/261 | Loss: 0.1574 | OrthoLoss: 0.0003
+Epoch 4/300 | Batch 78/261 | Loss: 0.1530 | OrthoLoss: 0.0000
+Epoch 4/300 | Batch 104/261 | Loss: 0.1423 | OrthoLoss: 0.0000
+Epoch 4/300 | Batch 130/261 | Loss: 0.1435 | OrthoLoss: 0.0004
+Epoch 4/300 | Batch 156/261 | Loss: 0.1515 | OrthoLoss: 0.0000
+Epoch 4/300 | Batch 182/261 | Loss: 0.1418 | OrthoLoss: 0.0001
+Epoch 4/300 | Batch 208/261 | Loss: 0.1382 | OrthoLoss: 0.0002
+Epoch 4/300 | Batch 234/261 | Loss: 0.1453 | OrthoLoss: 0.0001
+Epoch 4/300 | Batch 260/261 | Loss: 0.1369 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 4: MAE=13.1173, MAPE=7.26%, RMSE=20.7033, lr=1.0e-03 | beta_eff_mean=0.4151, inj_mean=0.1157, z_mean=0.643, alphaC_mean=[0.24698694050312042, 0.2258656620979309, 0.22873727977275848, 0.28578969836235046]
+Epoch 5/300 | Batch 26/261 | Loss: 0.1341 | OrthoLoss: 0.0002
+Epoch 5/300 | Batch 52/261 | Loss: 0.1342 | OrthoLoss: 0.0000
+Epoch 5/300 | Batch 78/261 | Loss: 0.1443 | OrthoLoss: 0.0000
+Epoch 5/300 | Batch 104/261 | Loss: 0.1384 | OrthoLoss: 0.0001
+Epoch 5/300 | Batch 130/261 | Loss: 0.1448 | OrthoLoss: 0.0000
+Epoch 5/300 | Batch 156/261 | Loss: 0.1406 | OrthoLoss: 0.0001
+Epoch 5/300 | Batch 182/261 | Loss: 0.1471 | OrthoLoss: 0.0011
+Epoch 5/300 | Batch 208/261 | Loss: 0.1378 | OrthoLoss: 0.0000
+Epoch 5/300 | Batch 234/261 | Loss: 0.1330 | OrthoLoss: 0.0000
+Epoch 5/300 | Batch 260/261 | Loss: 0.1416 | OrthoLoss: 0.0002
+[PEMS08] d_model=112, layers=5 | Epoch 5: MAE=13.0354, MAPE=7.21%, RMSE=20.5830, lr=1.0e-03 | beta_eff_mean=0.4191, inj_mean=0.1203, z_mean=0.665, alphaC_mean=[0.23936793208122253, 0.22312112152576447, 0.2345927506685257, 0.29268449544906616]
+Epoch 6/300 | Batch 26/261 | Loss: 0.1366 | OrthoLoss: 0.0001
+Epoch 6/300 | Batch 52/261 | Loss: 0.1544 | OrthoLoss: 0.0000
+Epoch 6/300 | Batch 78/261 | Loss: 0.1277 | OrthoLoss: 0.0000
+Epoch 6/300 | Batch 104/261 | Loss: 0.1433 | OrthoLoss: 0.0000
+Epoch 6/300 | Batch 130/261 | Loss: 0.1457 | OrthoLoss: 0.0000
+Epoch 6/300 | Batch 156/261 | Loss: 0.1342 | OrthoLoss: 0.0000
+Epoch 6/300 | Batch 182/261 | Loss: 0.1503 | OrthoLoss: 0.0000
+Epoch 6/300 | Batch 208/261 | Loss: 0.1383 | OrthoLoss: 0.0002
+Epoch 6/300 | Batch 234/261 | Loss: 0.1403 | OrthoLoss: 0.0000
+Epoch 6/300 | Batch 260/261 | Loss: 0.1331 | OrthoLoss: 0.0002
+[PEMS08] d_model=112, layers=5 | Epoch 6: MAE=13.1752, MAPE=7.36%, RMSE=20.6459, lr=1.0e-03 | beta_eff_mean=0.4216, inj_mean=0.1236, z_mean=0.676, alphaC_mean=[0.2530391216278076, 0.21864618360996246, 0.235174298286438, 0.28560784459114075]
+Epoch 7/300 | Batch 26/261 | Loss: 0.1444 | OrthoLoss: 0.0001
+Epoch 7/300 | Batch 52/261 | Loss: 0.1419 | OrthoLoss: 0.0000
+Epoch 7/300 | Batch 78/261 | Loss: 0.1387 | OrthoLoss: 0.0001
+Epoch 7/300 | Batch 104/261 | Loss: 0.1498 | OrthoLoss: 0.0000
+Epoch 7/300 | Batch 130/261 | Loss: 0.1475 | OrthoLoss: 0.0000
+Epoch 7/300 | Batch 156/261 | Loss: 0.1355 | OrthoLoss: 0.0001
+Epoch 7/300 | Batch 182/261 | Loss: 0.1491 | OrthoLoss: 0.0002
+Epoch 7/300 | Batch 208/261 | Loss: 0.1347 | OrthoLoss: 0.0001
+Epoch 7/300 | Batch 234/261 | Loss: 0.1394 | OrthoLoss: 0.0002
+Epoch 7/300 | Batch 260/261 | Loss: 0.1367 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 7: MAE=12.9917, MAPE=7.26%, RMSE=20.5973, lr=1.0e-03 | beta_eff_mean=0.4227, inj_mean=0.1242, z_mean=0.682, alphaC_mean=[0.245646134018898, 0.22413665056228638, 0.23475810885429382, 0.2897973656654358]
+Epoch 8/300 | Batch 26/261 | Loss: 0.1303 | OrthoLoss: 0.0000
+Epoch 8/300 | Batch 52/261 | Loss: 0.1436 | OrthoLoss: 0.0000
+Epoch 8/300 | Batch 78/261 | Loss: 0.1382 | OrthoLoss: 0.0000
+Epoch 8/300 | Batch 104/261 | Loss: 0.1226 | OrthoLoss: 0.0000
+Epoch 8/300 | Batch 130/261 | Loss: 0.1405 | OrthoLoss: 0.0000
+Epoch 8/300 | Batch 156/261 | Loss: 0.1299 | OrthoLoss: 0.0000
+Epoch 8/300 | Batch 182/261 | Loss: 0.1367 | OrthoLoss: 0.0000
+Epoch 8/300 | Batch 208/261 | Loss: 0.1397 | OrthoLoss: 0.0000
+Epoch 8/300 | Batch 234/261 | Loss: 0.1492 | OrthoLoss: 0.0001
+Epoch 8/300 | Batch 260/261 | Loss: 0.1387 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 8: MAE=12.9674, MAPE=7.26%, RMSE=20.5058, lr=1.0e-03 | beta_eff_mean=0.4239, inj_mean=0.1265, z_mean=0.682, alphaC_mean=[0.24314768612384796, 0.2320922464132309, 0.22960461676120758, 0.2908039391040802]
+Epoch 9/300 | Batch 26/261 | Loss: 0.1368 | OrthoLoss: 0.0000
+Epoch 9/300 | Batch 52/261 | Loss: 0.1343 | OrthoLoss: 0.0000
+Epoch 9/300 | Batch 78/261 | Loss: 0.1323 | OrthoLoss: 0.0000
+Epoch 9/300 | Batch 104/261 | Loss: 0.1366 | OrthoLoss: 0.0006
+Epoch 9/300 | Batch 130/261 | Loss: 0.1474 | OrthoLoss: 0.0000
+Epoch 9/300 | Batch 156/261 | Loss: 0.1427 | OrthoLoss: 0.0002
+Epoch 9/300 | Batch 182/261 | Loss: 0.1315 | OrthoLoss: 0.0001
+Epoch 9/300 | Batch 208/261 | Loss: 0.1470 | OrthoLoss: 0.0000
+Epoch 9/300 | Batch 234/261 | Loss: 0.1376 | OrthoLoss: 0.0003
+Epoch 9/300 | Batch 260/261 | Loss: 0.1484 | OrthoLoss: 0.0006
+[PEMS08] d_model=112, layers=5 | Epoch 9: MAE=12.9221, MAPE=7.29%, RMSE=20.4247, lr=1.0e-03 | beta_eff_mean=0.4247, inj_mean=0.1292, z_mean=0.681, alphaC_mean=[0.24461300671100616, 0.2248585820198059, 0.2403525710105896, 0.28649985790252686]
+Epoch 10/300 | Batch 26/261 | Loss: 0.1286 | OrthoLoss: 0.0000
+Epoch 10/300 | Batch 52/261 | Loss: 0.1477 | OrthoLoss: 0.0001
+Epoch 10/300 | Batch 78/261 | Loss: 0.1357 | OrthoLoss: 0.0001
+Epoch 10/300 | Batch 104/261 | Loss: 0.1335 | OrthoLoss: 0.0000
+Epoch 10/300 | Batch 130/261 | Loss: 0.1348 | OrthoLoss: 0.0000
+Epoch 10/300 | Batch 156/261 | Loss: 0.1415 | OrthoLoss: 0.0000
+Epoch 10/300 | Batch 182/261 | Loss: 0.1423 | OrthoLoss: 0.0000
+Epoch 10/300 | Batch 208/261 | Loss: 0.1361 | OrthoLoss: 0.0001
+Epoch 10/300 | Batch 234/261 | Loss: 0.1341 | OrthoLoss: 0.0000
+Epoch 10/300 | Batch 260/261 | Loss: 0.1289 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 10: MAE=12.9217, MAPE=7.15%, RMSE=20.4995, lr=1.0e-03 | beta_eff_mean=0.4253, inj_mean=0.1297, z_mean=0.686, alphaC_mean=[0.24510999023914337, 0.22337201237678528, 0.23870286345481873, 0.2894781231880188]
+Epoch 11/300 | Batch 26/261 | Loss: 0.1298 | OrthoLoss: 0.0001
+Epoch 11/300 | Batch 52/261 | Loss: 0.1288 | OrthoLoss: 0.0000
+Epoch 11/300 | Batch 78/261 | Loss: 0.1442 | OrthoLoss: 0.0000
+Epoch 11/300 | Batch 104/261 | Loss: 0.1360 | OrthoLoss: 0.0000
+Epoch 11/300 | Batch 130/261 | Loss: 0.1447 | OrthoLoss: 0.0000
+Epoch 11/300 | Batch 156/261 | Loss: 0.1348 | OrthoLoss: 0.0000
+Epoch 11/300 | Batch 182/261 | Loss: 0.1305 | OrthoLoss: 0.0000
+Epoch 11/300 | Batch 208/261 | Loss: 0.1374 | OrthoLoss: 0.0000
+Epoch 11/300 | Batch 234/261 | Loss: 0.1312 | OrthoLoss: 0.0000
+Epoch 11/300 | Batch 260/261 | Loss: 0.1359 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 11: MAE=12.7497, MAPE=7.10%, RMSE=20.2947, lr=1.0e-03 | beta_eff_mean=0.4257, inj_mean=0.1303, z_mean=0.684, alphaC_mean=[0.2504252791404724, 0.22911547124385834, 0.23571661114692688, 0.2817876935005188]
+Epoch 12/300 | Batch 26/261 | Loss: 0.1365 | OrthoLoss: 0.0000
+Epoch 12/300 | Batch 52/261 | Loss: 0.1384 | OrthoLoss: 0.0000
+Epoch 12/300 | Batch 78/261 | Loss: 0.1286 | OrthoLoss: 0.0000
+Epoch 12/300 | Batch 104/261 | Loss: 0.1323 | OrthoLoss: 0.0001
+Epoch 12/300 | Batch 130/261 | Loss: 0.1282 | OrthoLoss: 0.0000
+Epoch 12/300 | Batch 156/261 | Loss: 0.1383 | OrthoLoss: 0.0000
+Epoch 12/300 | Batch 182/261 | Loss: 0.1377 | OrthoLoss: 0.0000
+Epoch 12/300 | Batch 208/261 | Loss: 0.1494 | OrthoLoss: 0.0002
+Epoch 12/300 | Batch 234/261 | Loss: 0.1330 | OrthoLoss: 0.0002
+Epoch 12/300 | Batch 260/261 | Loss: 0.1322 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 12: MAE=12.7615, MAPE=7.07%, RMSE=20.2592, lr=1.0e-03 | beta_eff_mean=0.4263, inj_mean=0.1335, z_mean=0.681, alphaC_mean=[0.24620161950588226, 0.22947868704795837, 0.2311471700668335, 0.29033344984054565]
+Epoch 13/300 | Batch 26/261 | Loss: 0.1251 | OrthoLoss: 0.0000
+Epoch 13/300 | Batch 52/261 | Loss: 0.1380 | OrthoLoss: 0.0000
+Epoch 13/300 | Batch 78/261 | Loss: 0.1320 | OrthoLoss: 0.0000
+Epoch 13/300 | Batch 104/261 | Loss: 0.1303 | OrthoLoss: 0.0000
+Epoch 13/300 | Batch 130/261 | Loss: 0.1294 | OrthoLoss: 0.0001
+Epoch 13/300 | Batch 156/261 | Loss: 0.1388 | OrthoLoss: 0.0000
+Epoch 13/300 | Batch 182/261 | Loss: 0.1421 | OrthoLoss: 0.0000
+Epoch 13/300 | Batch 208/261 | Loss: 0.1477 | OrthoLoss: 0.0002
+Epoch 13/300 | Batch 234/261 | Loss: 0.1356 | OrthoLoss: 0.0000
+Epoch 13/300 | Batch 260/261 | Loss: 0.1392 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 13: MAE=12.7526, MAPE=7.05%, RMSE=20.2278, lr=1.0e-03 | beta_eff_mean=0.4268, inj_mean=0.1371, z_mean=0.678, alphaC_mean=[0.24984502792358398, 0.23316828906536102, 0.23172158002853394, 0.283010333776474]
+Epoch 14/300 | Batch 26/261 | Loss: 0.1372 | OrthoLoss: 0.0000
+Epoch 14/300 | Batch 52/261 | Loss: 0.1356 | OrthoLoss: 0.0002
+Epoch 14/300 | Batch 78/261 | Loss: 0.1342 | OrthoLoss: 0.0000
+Epoch 14/300 | Batch 104/261 | Loss: 0.1422 | OrthoLoss: 0.0001
+Epoch 14/300 | Batch 130/261 | Loss: 0.1429 | OrthoLoss: 0.0000
+Epoch 14/300 | Batch 156/261 | Loss: 0.1321 | OrthoLoss: 0.0000
+Epoch 14/300 | Batch 182/261 | Loss: 0.1457 | OrthoLoss: 0.0000
+Epoch 14/300 | Batch 208/261 | Loss: 0.1498 | OrthoLoss: 0.0000
+Epoch 14/300 | Batch 234/261 | Loss: 0.1425 | OrthoLoss: 0.0001
+Epoch 14/300 | Batch 260/261 | Loss: 0.1338 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 14: MAE=12.6789, MAPE=7.10%, RMSE=20.2081, lr=1.0e-03 | beta_eff_mean=0.4275, inj_mean=0.1366, z_mean=0.678, alphaC_mean=[0.24744907021522522, 0.22543965280056, 0.23793745040893555, 0.2869874835014343]
+Epoch 15/300 | Batch 26/261 | Loss: 0.1356 | OrthoLoss: 0.0001
+Epoch 15/300 | Batch 52/261 | Loss: 0.1354 | OrthoLoss: 0.0000
+Epoch 15/300 | Batch 78/261 | Loss: 0.1312 | OrthoLoss: 0.0000
+Epoch 15/300 | Batch 104/261 | Loss: 0.1290 | OrthoLoss: 0.0001
+Epoch 15/300 | Batch 130/261 | Loss: 0.1364 | OrthoLoss: 0.0000
+Epoch 15/300 | Batch 156/261 | Loss: 0.1323 | OrthoLoss: 0.0011
+Epoch 15/300 | Batch 182/261 | Loss: 0.1311 | OrthoLoss: 0.0000
+Epoch 15/300 | Batch 208/261 | Loss: 0.1362 | OrthoLoss: 0.0000
+Epoch 15/300 | Batch 234/261 | Loss: 0.1315 | OrthoLoss: 0.0002
+Epoch 15/300 | Batch 260/261 | Loss: 0.1482 | OrthoLoss: 0.0002
+[PEMS08] d_model=112, layers=5 | Epoch 15: MAE=12.7923, MAPE=7.10%, RMSE=20.3101, lr=1.0e-03 | beta_eff_mean=0.4280, inj_mean=0.1397, z_mean=0.673, alphaC_mean=[0.254681795835495, 0.22108139097690582, 0.23847217857837677, 0.28317397832870483]
+Epoch 16/300 | Batch 26/261 | Loss: 0.1249 | OrthoLoss: 0.0000
+Epoch 16/300 | Batch 52/261 | Loss: 0.1376 | OrthoLoss: 0.0000
+Epoch 16/300 | Batch 78/261 | Loss: 0.1245 | OrthoLoss: 0.0000
+Epoch 16/300 | Batch 104/261 | Loss: 0.1437 | OrthoLoss: 0.0001
+Epoch 16/300 | Batch 130/261 | Loss: 0.1301 | OrthoLoss: 0.0000
+Epoch 16/300 | Batch 156/261 | Loss: 0.1480 | OrthoLoss: 0.0000
+Epoch 16/300 | Batch 182/261 | Loss: 0.1327 | OrthoLoss: 0.0006
+Epoch 16/300 | Batch 208/261 | Loss: 0.1267 | OrthoLoss: 0.0001
+Epoch 16/300 | Batch 234/261 | Loss: 0.1324 | OrthoLoss: 0.0001
+Epoch 16/300 | Batch 260/261 | Loss: 0.1405 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 16: MAE=12.6860, MAPE=7.12%, RMSE=20.2428, lr=1.0e-03 | beta_eff_mean=0.4289, inj_mean=0.1389, z_mean=0.672, alphaC_mean=[0.2468244582414627, 0.22509905695915222, 0.2417183220386505, 0.2844763696193695]
+Epoch 17/300 | Batch 26/261 | Loss: 0.1404 | OrthoLoss: 0.0000
+Epoch 17/300 | Batch 52/261 | Loss: 0.1366 | OrthoLoss: 0.0000
+Epoch 17/300 | Batch 78/261 | Loss: 0.1424 | OrthoLoss: 0.0001
+Epoch 17/300 | Batch 104/261 | Loss: 0.1375 | OrthoLoss: 0.0000
+Epoch 17/300 | Batch 130/261 | Loss: 0.1332 | OrthoLoss: 0.0000
+Epoch 17/300 | Batch 156/261 | Loss: 0.1446 | OrthoLoss: 0.0000
+Epoch 17/300 | Batch 182/261 | Loss: 0.1360 | OrthoLoss: 0.0000
+Epoch 17/300 | Batch 208/261 | Loss: 0.1334 | OrthoLoss: 0.0000
+Epoch 17/300 | Batch 234/261 | Loss: 0.1404 | OrthoLoss: 0.0000
+Epoch 17/300 | Batch 260/261 | Loss: 0.1384 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 17: MAE=12.6383, MAPE=7.06%, RMSE=20.1535, lr=1.0e-03 | beta_eff_mean=0.4296, inj_mean=0.1416, z_mean=0.666, alphaC_mean=[0.24523520469665527, 0.23477064073085785, 0.23263418674468994, 0.2859378755092621]
+Epoch 18/300 | Batch 26/261 | Loss: 0.1328 | OrthoLoss: 0.0000
+Epoch 18/300 | Batch 52/261 | Loss: 0.1223 | OrthoLoss: 0.0000
+Epoch 18/300 | Batch 78/261 | Loss: 0.1356 | OrthoLoss: 0.0001
+Epoch 18/300 | Batch 104/261 | Loss: 0.1378 | OrthoLoss: 0.0002
+Epoch 18/300 | Batch 130/261 | Loss: 0.1319 | OrthoLoss: 0.0000
+Epoch 18/300 | Batch 156/261 | Loss: 0.1431 | OrthoLoss: 0.0000
+Epoch 18/300 | Batch 182/261 | Loss: 0.1337 | OrthoLoss: 0.0000
+Epoch 18/300 | Batch 208/261 | Loss: 0.1317 | OrthoLoss: 0.0001
+Epoch 18/300 | Batch 234/261 | Loss: 0.1342 | OrthoLoss: 0.0000
+Epoch 18/300 | Batch 260/261 | Loss: 0.1377 | OrthoLoss: 0.0003
+[PEMS08] d_model=112, layers=5 | Epoch 18: MAE=12.6989, MAPE=7.22%, RMSE=20.1699, lr=1.0e-03 | beta_eff_mean=0.4303, inj_mean=0.1416, z_mean=0.667, alphaC_mean=[0.24626141786575317, 0.22606627643108368, 0.23601016402244568, 0.29033011198043823]
+Epoch 19/300 | Batch 26/261 | Loss: 0.1377 | OrthoLoss: 0.0001
+Epoch 19/300 | Batch 52/261 | Loss: 0.1349 | OrthoLoss: 0.0001
+Epoch 19/300 | Batch 78/261 | Loss: 0.1414 | OrthoLoss: 0.0000
+Epoch 19/300 | Batch 104/261 | Loss: 0.1370 | OrthoLoss: 0.0001
+Epoch 19/300 | Batch 130/261 | Loss: 0.1304 | OrthoLoss: 0.0000
+Epoch 19/300 | Batch 156/261 | Loss: 0.1320 | OrthoLoss: 0.0003
+Epoch 19/300 | Batch 182/261 | Loss: 0.1314 | OrthoLoss: 0.0003
+Epoch 19/300 | Batch 208/261 | Loss: 0.1414 | OrthoLoss: 0.0000
+Epoch 19/300 | Batch 234/261 | Loss: 0.1358 | OrthoLoss: 0.0000
+Epoch 19/300 | Batch 260/261 | Loss: 0.1458 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 19: MAE=12.7210, MAPE=7.10%, RMSE=20.2660, lr=1.0e-03 | beta_eff_mean=0.4310, inj_mean=0.1418, z_mean=0.667, alphaC_mean=[0.25414034724235535, 0.22695545852184296, 0.2375383824110031, 0.2799936830997467]
+Epoch 20/300 | Batch 26/261 | Loss: 0.1340 | OrthoLoss: 0.0003
+Epoch 20/300 | Batch 52/261 | Loss: 0.1379 | OrthoLoss: 0.0000
+Epoch 20/300 | Batch 78/261 | Loss: 0.1314 | OrthoLoss: 0.0001
+Epoch 20/300 | Batch 104/261 | Loss: 0.1270 | OrthoLoss: 0.0002
+Epoch 20/300 | Batch 130/261 | Loss: 0.1380 | OrthoLoss: 0.0001
+Epoch 20/300 | Batch 156/261 | Loss: 0.1393 | OrthoLoss: 0.0000
+Epoch 20/300 | Batch 182/261 | Loss: 0.1546 | OrthoLoss: 0.0000
+Epoch 20/300 | Batch 208/261 | Loss: 0.1237 | OrthoLoss: 0.0000
+Epoch 20/300 | Batch 234/261 | Loss: 0.1334 | OrthoLoss: 0.0001
+Epoch 20/300 | Batch 260/261 | Loss: 0.1330 | OrthoLoss: 0.0002
+[PEMS08] d_model=112, layers=5 | Epoch 20: MAE=12.7298, MAPE=7.13%, RMSE=20.4324, lr=1.0e-03 | beta_eff_mean=0.4315, inj_mean=0.1435, z_mean=0.665, alphaC_mean=[0.2523598372936249, 0.22784818708896637, 0.23610541224479675, 0.28246167302131653]
+Epoch 21/300 | Batch 26/261 | Loss: 0.1250 | OrthoLoss: 0.0000
+Epoch 21/300 | Batch 52/261 | Loss: 0.1386 | OrthoLoss: 0.0000
+Epoch 21/300 | Batch 78/261 | Loss: 0.1295 | OrthoLoss: 0.0002
+Epoch 21/300 | Batch 104/261 | Loss: 0.1352 | OrthoLoss: 0.0002
+Epoch 21/300 | Batch 130/261 | Loss: 0.1280 | OrthoLoss: 0.0000
+Epoch 21/300 | Batch 156/261 | Loss: 0.1382 | OrthoLoss: 0.0000
+Epoch 21/300 | Batch 182/261 | Loss: 0.1393 | OrthoLoss: 0.0001
+Epoch 21/300 | Batch 208/261 | Loss: 0.1335 | OrthoLoss: 0.0000
+Epoch 21/300 | Batch 234/261 | Loss: 0.1264 | OrthoLoss: 0.0001
+Epoch 21/300 | Batch 260/261 | Loss: 0.1316 | OrthoLoss: 0.0002
+[PEMS08] d_model=112, layers=5 | Epoch 21: MAE=12.5401, MAPE=7.00%, RMSE=20.0394, lr=1.0e-03 | beta_eff_mean=0.4321, inj_mean=0.1430, z_mean=0.663, alphaC_mean=[0.2545176148414612, 0.22264741361141205, 0.23699788749217987, 0.28436365723609924]
+Epoch 22/300 | Batch 26/261 | Loss: 0.1354 | OrthoLoss: 0.0003
+Epoch 22/300 | Batch 52/261 | Loss: 0.1374 | OrthoLoss: 0.0001
+Epoch 22/300 | Batch 78/261 | Loss: 0.1326 | OrthoLoss: 0.0000
+Epoch 22/300 | Batch 104/261 | Loss: 0.1305 | OrthoLoss: 0.0000
+Epoch 22/300 | Batch 130/261 | Loss: 0.1205 | OrthoLoss: 0.0001
+Epoch 22/300 | Batch 156/261 | Loss: 0.1306 | OrthoLoss: 0.0000
+Epoch 22/300 | Batch 182/261 | Loss: 0.1329 | OrthoLoss: 0.0000
+Epoch 22/300 | Batch 208/261 | Loss: 0.1358 | OrthoLoss: 0.0000
+Epoch 22/300 | Batch 234/261 | Loss: 0.1355 | OrthoLoss: 0.0001
+Epoch 22/300 | Batch 260/261 | Loss: 0.1292 | OrthoLoss: 0.0003
+[PEMS08] d_model=112, layers=5 | Epoch 22: MAE=12.5679, MAPE=7.00%, RMSE=20.1102, lr=1.0e-03 | beta_eff_mean=0.4328, inj_mean=0.1444, z_mean=0.662, alphaC_mean=[0.2527119517326355, 0.22793954610824585, 0.23958738148212433, 0.27834683656692505]
+Epoch 23/300 | Batch 26/261 | Loss: 0.1361 | OrthoLoss: 0.0004
+Epoch 23/300 | Batch 52/261 | Loss: 0.1286 | OrthoLoss: 0.0001
+Epoch 23/300 | Batch 78/261 | Loss: 0.1396 | OrthoLoss: 0.0000
+Epoch 23/300 | Batch 104/261 | Loss: 0.1386 | OrthoLoss: 0.0000
+Epoch 23/300 | Batch 130/261 | Loss: 0.1231 | OrthoLoss: 0.0002
+Epoch 23/300 | Batch 156/261 | Loss: 0.1414 | OrthoLoss: 0.0001
+Epoch 23/300 | Batch 182/261 | Loss: 0.1344 | OrthoLoss: 0.0000
+Epoch 23/300 | Batch 208/261 | Loss: 0.1414 | OrthoLoss: 0.0000
+Epoch 23/300 | Batch 234/261 | Loss: 0.1353 | OrthoLoss: 0.0002
+Epoch 23/300 | Batch 260/261 | Loss: 0.1399 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 23: MAE=12.5243, MAPE=7.00%, RMSE=20.0685, lr=1.0e-03 | beta_eff_mean=0.4339, inj_mean=0.1448, z_mean=0.661, alphaC_mean=[0.24334508180618286, 0.23013712465763092, 0.23538626730442047, 0.28986024856567383]
+Epoch 24/300 | Batch 26/261 | Loss: 0.1336 | OrthoLoss: 0.0000
+Epoch 24/300 | Batch 52/261 | Loss: 0.1349 | OrthoLoss: 0.0000
+Epoch 24/300 | Batch 78/261 | Loss: 0.1240 | OrthoLoss: 0.0001
+Epoch 24/300 | Batch 104/261 | Loss: 0.1266 | OrthoLoss: 0.0001
+Epoch 24/300 | Batch 130/261 | Loss: 0.1313 | OrthoLoss: 0.0000
+Epoch 24/300 | Batch 156/261 | Loss: 0.1367 | OrthoLoss: 0.0000
+Epoch 24/300 | Batch 182/261 | Loss: 0.1289 | OrthoLoss: 0.0001
+Epoch 24/300 | Batch 208/261 | Loss: 0.1426 | OrthoLoss: 0.0000
+Epoch 24/300 | Batch 234/261 | Loss: 0.1274 | OrthoLoss: 0.0000
+Epoch 24/300 | Batch 260/261 | Loss: 0.1320 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 24: MAE=12.4730, MAPE=6.99%, RMSE=19.9990, lr=1.0e-03 | beta_eff_mean=0.4346, inj_mean=0.1449, z_mean=0.659, alphaC_mean=[0.2521263659000397, 0.22543108463287354, 0.2373507171869278, 0.2838701605796814]
+Epoch 25/300 | Batch 26/261 | Loss: 0.1358 | OrthoLoss: 0.0001
+Epoch 25/300 | Batch 52/261 | Loss: 0.1292 | OrthoLoss: 0.0001
+Epoch 25/300 | Batch 78/261 | Loss: 0.1281 | OrthoLoss: 0.0000
+Epoch 25/300 | Batch 104/261 | Loss: 0.1250 | OrthoLoss: 0.0000
+Epoch 25/300 | Batch 130/261 | Loss: 0.1439 | OrthoLoss: 0.0002
+Epoch 25/300 | Batch 156/261 | Loss: 0.1251 | OrthoLoss: 0.0000
+Epoch 25/300 | Batch 182/261 | Loss: 0.1400 | OrthoLoss: 0.0000
+Epoch 25/300 | Batch 208/261 | Loss: 0.1329 | OrthoLoss: 0.0002
+Epoch 25/300 | Batch 234/261 | Loss: 0.1360 | OrthoLoss: 0.0000
+Epoch 25/300 | Batch 260/261 | Loss: 0.1301 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 25: MAE=12.6791, MAPE=7.14%, RMSE=20.3383, lr=1.0e-03 | beta_eff_mean=0.4352, inj_mean=0.1459, z_mean=0.658, alphaC_mean=[0.24956241250038147, 0.23844389617443085, 0.23040616512298584, 0.2804722785949707]
+Epoch 26/300 | Batch 26/261 | Loss: 0.1345 | OrthoLoss: 0.0001
+Epoch 26/300 | Batch 52/261 | Loss: 0.1347 | OrthoLoss: 0.0003
+Epoch 26/300 | Batch 78/261 | Loss: 0.1355 | OrthoLoss: 0.0000
+Epoch 26/300 | Batch 104/261 | Loss: 0.1346 | OrthoLoss: 0.0000
+Epoch 26/300 | Batch 130/261 | Loss: 0.1253 | OrthoLoss: 0.0000
+Epoch 26/300 | Batch 156/261 | Loss: 0.1356 | OrthoLoss: 0.0002
+Epoch 26/300 | Batch 182/261 | Loss: 0.1271 | OrthoLoss: 0.0000
+Epoch 26/300 | Batch 208/261 | Loss: 0.1306 | OrthoLoss: 0.0000
+Epoch 26/300 | Batch 234/261 | Loss: 0.1246 | OrthoLoss: 0.0001
+Epoch 26/300 | Batch 260/261 | Loss: 0.1432 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 26: MAE=12.4334, MAPE=6.99%, RMSE=19.9785, lr=1.0e-03 | beta_eff_mean=0.4363, inj_mean=0.1455, z_mean=0.658, alphaC_mean=[0.25020700693130493, 0.23344816267490387, 0.23093262314796448, 0.28434836864471436]
+Epoch 27/300 | Batch 26/261 | Loss: 0.1426 | OrthoLoss: 0.0000
+Epoch 27/300 | Batch 52/261 | Loss: 0.1392 | OrthoLoss: 0.0000
+Epoch 27/300 | Batch 78/261 | Loss: 0.1374 | OrthoLoss: 0.0000
+Epoch 27/300 | Batch 104/261 | Loss: 0.1206 | OrthoLoss: 0.0000
+Epoch 27/300 | Batch 130/261 | Loss: 0.1290 | OrthoLoss: 0.0000
+Epoch 27/300 | Batch 156/261 | Loss: 0.1305 | OrthoLoss: 0.0000
+Epoch 27/300 | Batch 182/261 | Loss: 0.1354 | OrthoLoss: 0.0004
+Epoch 27/300 | Batch 208/261 | Loss: 0.1332 | OrthoLoss: 0.0000
+Epoch 27/300 | Batch 234/261 | Loss: 0.1292 | OrthoLoss: 0.0000
+Epoch 27/300 | Batch 260/261 | Loss: 0.1382 | OrthoLoss: 0.0002
+[PEMS08] d_model=112, layers=5 | Epoch 27: MAE=12.3698, MAPE=6.90%, RMSE=19.9496, lr=1.0e-03 | beta_eff_mean=0.4377, inj_mean=0.1453, z_mean=0.656, alphaC_mean=[0.2533162534236908, 0.22552980482578278, 0.23498216271400452, 0.28505605459213257]
+Epoch 28/300 | Batch 26/261 | Loss: 0.1353 | OrthoLoss: 0.0002
+Epoch 28/300 | Batch 52/261 | Loss: 0.1354 | OrthoLoss: 0.0000
+Epoch 28/300 | Batch 78/261 | Loss: 0.1288 | OrthoLoss: 0.0002
+Epoch 28/300 | Batch 104/261 | Loss: 0.1242 | OrthoLoss: 0.0000
+Epoch 28/300 | Batch 130/261 | Loss: 0.1286 | OrthoLoss: 0.0000
+Epoch 28/300 | Batch 156/261 | Loss: 0.1259 | OrthoLoss: 0.0001
+Epoch 28/300 | Batch 182/261 | Loss: 0.1450 | OrthoLoss: 0.0000
+Epoch 28/300 | Batch 208/261 | Loss: 0.1269 | OrthoLoss: 0.0001
+Epoch 28/300 | Batch 234/261 | Loss: 0.1307 | OrthoLoss: 0.0000
+Epoch 28/300 | Batch 260/261 | Loss: 0.1386 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 28: MAE=12.3305, MAPE=6.94%, RMSE=19.8869, lr=1.0e-03 | beta_eff_mean=0.4385, inj_mean=0.1454, z_mean=0.656, alphaC_mean=[0.24379689991474152, 0.23307351768016815, 0.2336132526397705, 0.28832894563674927]
+Epoch 29/300 | Batch 26/261 | Loss: 0.1257 | OrthoLoss: 0.0000
+Epoch 29/300 | Batch 52/261 | Loss: 0.1343 | OrthoLoss: 0.0003
+Epoch 29/300 | Batch 78/261 | Loss: 0.1239 | OrthoLoss: 0.0000
+Epoch 29/300 | Batch 104/261 | Loss: 0.1312 | OrthoLoss: 0.0000
+Epoch 29/300 | Batch 130/261 | Loss: 0.1308 | OrthoLoss: 0.0003
+Epoch 29/300 | Batch 156/261 | Loss: 0.1291 | OrthoLoss: 0.0000
+Epoch 29/300 | Batch 182/261 | Loss: 0.1414 | OrthoLoss: 0.0000
+Epoch 29/300 | Batch 208/261 | Loss: 0.1211 | OrthoLoss: 0.0000
+Epoch 29/300 | Batch 234/261 | Loss: 0.1214 | OrthoLoss: 0.0000
+Epoch 29/300 | Batch 260/261 | Loss: 0.1309 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 29: MAE=12.2749, MAPE=6.88%, RMSE=19.8486, lr=1.0e-03 | beta_eff_mean=0.4398, inj_mean=0.1440, z_mean=0.656, alphaC_mean=[0.25196629762649536, 0.22676528990268707, 0.23265478014945984, 0.2873794138431549]
+Epoch 30/300 | Batch 26/261 | Loss: 0.1222 | OrthoLoss: 0.0002
+Epoch 30/300 | Batch 52/261 | Loss: 0.1259 | OrthoLoss: 0.0000
+Epoch 30/300 | Batch 78/261 | Loss: 0.1371 | OrthoLoss: 0.0002
+Epoch 30/300 | Batch 104/261 | Loss: 0.1373 | OrthoLoss: 0.0001
+Epoch 30/300 | Batch 130/261 | Loss: 0.1120 | OrthoLoss: 0.0000
+Epoch 30/300 | Batch 156/261 | Loss: 0.1314 | OrthoLoss: 0.0000
+Epoch 30/300 | Batch 182/261 | Loss: 0.1288 | OrthoLoss: 0.0000
+Epoch 30/300 | Batch 208/261 | Loss: 0.1285 | OrthoLoss: 0.0000
+Epoch 30/300 | Batch 234/261 | Loss: 0.1278 | OrthoLoss: 0.0001
+Epoch 30/300 | Batch 260/261 | Loss: 0.1298 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 30: MAE=12.4256, MAPE=7.04%, RMSE=20.1391, lr=1.0e-03 | beta_eff_mean=0.4410, inj_mean=0.1449, z_mean=0.656, alphaC_mean=[0.24643239378929138, 0.2281842976808548, 0.23853594064712524, 0.2856930196285248]
+Epoch 31/300 | Batch 26/261 | Loss: 0.1304 | OrthoLoss: 0.0004
+Epoch 31/300 | Batch 52/261 | Loss: 0.1243 | OrthoLoss: 0.0001
+Epoch 31/300 | Batch 78/261 | Loss: 0.1345 | OrthoLoss: 0.0003
+Epoch 31/300 | Batch 104/261 | Loss: 0.1237 | OrthoLoss: 0.0004
+Epoch 31/300 | Batch 130/261 | Loss: 0.1311 | OrthoLoss: 0.0002
+Epoch 31/300 | Batch 156/261 | Loss: 0.1330 | OrthoLoss: 0.0000
+Epoch 31/300 | Batch 182/261 | Loss: 0.1402 | OrthoLoss: 0.0002
+Epoch 31/300 | Batch 208/261 | Loss: 0.1282 | OrthoLoss: 0.0003
+Epoch 31/300 | Batch 234/261 | Loss: 0.1240 | OrthoLoss: 0.0000
+Epoch 31/300 | Batch 260/261 | Loss: 0.1316 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 31: MAE=12.3235, MAPE=7.00%, RMSE=19.9985, lr=1.0e-03 | beta_eff_mean=0.4412, inj_mean=0.1425, z_mean=0.659, alphaC_mean=[0.24762481451034546, 0.22821685671806335, 0.2345106601715088, 0.28853392601013184]
+Epoch 32/300 | Batch 26/261 | Loss: 0.1251 | OrthoLoss: 0.0000
+Epoch 32/300 | Batch 52/261 | Loss: 0.1405 | OrthoLoss: 0.0000
+Epoch 32/300 | Batch 78/261 | Loss: 0.1351 | OrthoLoss: 0.0002
+Epoch 32/300 | Batch 104/261 | Loss: 0.1288 | OrthoLoss: 0.0000
+Epoch 32/300 | Batch 130/261 | Loss: 0.1213 | OrthoLoss: 0.0002
+Epoch 32/300 | Batch 156/261 | Loss: 0.1309 | OrthoLoss: 0.0000
+Epoch 32/300 | Batch 182/261 | Loss: 0.1305 | OrthoLoss: 0.0003
+Epoch 32/300 | Batch 208/261 | Loss: 0.1268 | OrthoLoss: 0.0000
+Epoch 32/300 | Batch 234/261 | Loss: 0.1256 | OrthoLoss: 0.0001
+Epoch 32/300 | Batch 260/261 | Loss: 0.1315 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 32: MAE=12.1607, MAPE=6.86%, RMSE=19.8002, lr=1.0e-03 | beta_eff_mean=0.4424, inj_mean=0.1428, z_mean=0.659, alphaC_mean=[0.25452548265457153, 0.23148465156555176, 0.22762355208396912, 0.2853618264198303]
+Epoch 33/300 | Batch 26/261 | Loss: 0.1408 | OrthoLoss: 0.0000
+Epoch 33/300 | Batch 52/261 | Loss: 0.1191 | OrthoLoss: 0.0001
+Epoch 33/300 | Batch 78/261 | Loss: 0.1227 | OrthoLoss: 0.0000
+Epoch 33/300 | Batch 104/261 | Loss: 0.1192 | OrthoLoss: 0.0001
+Epoch 33/300 | Batch 130/261 | Loss: 0.1223 | OrthoLoss: 0.0000
+Epoch 33/300 | Batch 156/261 | Loss: 0.1277 | OrthoLoss: 0.0000
+Epoch 33/300 | Batch 182/261 | Loss: 0.1317 | OrthoLoss: 0.0000
+Epoch 33/300 | Batch 208/261 | Loss: 0.1384 | OrthoLoss: 0.0000
+Epoch 33/300 | Batch 234/261 | Loss: 0.1350 | OrthoLoss: 0.0001
+Epoch 33/300 | Batch 260/261 | Loss: 0.1316 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 33: MAE=12.1363, MAPE=6.85%, RMSE=19.7394, lr=1.0e-03 | beta_eff_mean=0.4436, inj_mean=0.1402, z_mean=0.662, alphaC_mean=[0.2525638937950134, 0.2315409630537033, 0.2315009981393814, 0.2833075225353241]
+Epoch 34/300 | Batch 26/261 | Loss: 0.1323 | OrthoLoss: 0.0000
+Epoch 34/300 | Batch 52/261 | Loss: 0.1226 | OrthoLoss: 0.0000
+Epoch 34/300 | Batch 78/261 | Loss: 0.1299 | OrthoLoss: 0.0000
+Epoch 34/300 | Batch 104/261 | Loss: 0.1278 | OrthoLoss: 0.0002
+Epoch 34/300 | Batch 130/261 | Loss: 0.1397 | OrthoLoss: 0.0000
+Epoch 34/300 | Batch 156/261 | Loss: 0.1176 | OrthoLoss: 0.0000
+Epoch 34/300 | Batch 182/261 | Loss: 0.1227 | OrthoLoss: 0.0000
+Epoch 34/300 | Batch 208/261 | Loss: 0.1269 | OrthoLoss: 0.0000
+Epoch 34/300 | Batch 234/261 | Loss: 0.1224 | OrthoLoss: 0.0000
+Epoch 34/300 | Batch 260/261 | Loss: 0.1222 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 34: MAE=12.1421, MAPE=6.92%, RMSE=19.8105, lr=1.0e-03 | beta_eff_mean=0.4439, inj_mean=0.1392, z_mean=0.663, alphaC_mean=[0.248183473944664, 0.2306661605834961, 0.22704988718032837, 0.29310938715934753]
+Epoch 35/300 | Batch 26/261 | Loss: 0.1257 | OrthoLoss: 0.0001
+Epoch 35/300 | Batch 52/261 | Loss: 0.1204 | OrthoLoss: 0.0001
+Epoch 35/300 | Batch 78/261 | Loss: 0.1247 | OrthoLoss: 0.0000
+Epoch 35/300 | Batch 104/261 | Loss: 0.1169 | OrthoLoss: 0.0000
+Epoch 35/300 | Batch 130/261 | Loss: 0.1264 | OrthoLoss: 0.0004
+Epoch 35/300 | Batch 156/261 | Loss: 0.1272 | OrthoLoss: 0.0002
+Epoch 35/300 | Batch 182/261 | Loss: 0.1249 | OrthoLoss: 0.0000
+Epoch 35/300 | Batch 208/261 | Loss: 0.1303 | OrthoLoss: 0.0000
+Epoch 35/300 | Batch 234/261 | Loss: 0.1205 | OrthoLoss: 0.0001
+Epoch 35/300 | Batch 260/261 | Loss: 0.1250 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 35: MAE=12.0527, MAPE=6.83%, RMSE=19.7969, lr=1.0e-03 | beta_eff_mean=0.4443, inj_mean=0.1385, z_mean=0.664, alphaC_mean=[0.25222310423851013, 0.23073343932628632, 0.2295452058315277, 0.2864878475666046]
+Epoch 36/300 | Batch 26/261 | Loss: 0.1187 | OrthoLoss: 0.0000
+Epoch 36/300 | Batch 52/261 | Loss: 0.1236 | OrthoLoss: 0.0000
+Epoch 36/300 | Batch 78/261 | Loss: 0.1206 | OrthoLoss: 0.0002
+Epoch 36/300 | Batch 104/261 | Loss: 0.1311 | OrthoLoss: 0.0000
+Epoch 36/300 | Batch 130/261 | Loss: 0.1274 | OrthoLoss: 0.0000
+Epoch 36/300 | Batch 156/261 | Loss: 0.1296 | OrthoLoss: 0.0000
+Epoch 36/300 | Batch 182/261 | Loss: 0.1323 | OrthoLoss: 0.0001
+Epoch 36/300 | Batch 208/261 | Loss: 0.1271 | OrthoLoss: 0.0000
+Epoch 36/300 | Batch 234/261 | Loss: 0.1300 | OrthoLoss: 0.0002
+Epoch 36/300 | Batch 260/261 | Loss: 0.1204 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 36: MAE=12.1476, MAPE=6.87%, RMSE=19.9509, lr=1.0e-03 | beta_eff_mean=0.4445, inj_mean=0.1376, z_mean=0.665, alphaC_mean=[0.25278130173683167, 0.22694823145866394, 0.23227423429489136, 0.286886602640152]
+Epoch 37/300 | Batch 26/261 | Loss: 0.1371 | OrthoLoss: 0.0001
+Epoch 37/300 | Batch 52/261 | Loss: 0.1312 | OrthoLoss: 0.0001
+Epoch 37/300 | Batch 78/261 | Loss: 0.1185 | OrthoLoss: 0.0000
+Epoch 37/300 | Batch 104/261 | Loss: 0.1293 | OrthoLoss: 0.0000
+Epoch 37/300 | Batch 130/261 | Loss: 0.1304 | OrthoLoss: 0.0000
+Epoch 37/300 | Batch 156/261 | Loss: 0.1287 | OrthoLoss: 0.0000
+Epoch 37/300 | Batch 182/261 | Loss: 0.1336 | OrthoLoss: 0.0001
+Epoch 37/300 | Batch 208/261 | Loss: 0.1314 | OrthoLoss: 0.0000
+Epoch 37/300 | Batch 234/261 | Loss: 0.1160 | OrthoLoss: 0.0000
+Epoch 37/300 | Batch 260/261 | Loss: 0.1213 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 37: MAE=12.0109, MAPE=6.79%, RMSE=19.7866, lr=1.0e-03 | beta_eff_mean=0.4458, inj_mean=0.1361, z_mean=0.666, alphaC_mean=[0.24728700518608093, 0.22614428400993347, 0.23563629388809204, 0.2898938059806824]
+Epoch 38/300 | Batch 26/261 | Loss: 0.1196 | OrthoLoss: 0.0000
+Epoch 38/300 | Batch 52/261 | Loss: 0.1213 | OrthoLoss: 0.0000
+Epoch 38/300 | Batch 78/261 | Loss: 0.1225 | OrthoLoss: 0.0000
+Epoch 38/300 | Batch 104/261 | Loss: 0.1311 | OrthoLoss: 0.0001
+Epoch 38/300 | Batch 130/261 | Loss: 0.1287 | OrthoLoss: 0.0000
+Epoch 38/300 | Batch 156/261 | Loss: 0.1289 | OrthoLoss: 0.0000
+Epoch 38/300 | Batch 182/261 | Loss: 0.1246 | OrthoLoss: 0.0001
+Epoch 38/300 | Batch 208/261 | Loss: 0.1278 | OrthoLoss: 0.0000
+Epoch 38/300 | Batch 234/261 | Loss: 0.1230 | OrthoLoss: 0.0001
+Epoch 38/300 | Batch 260/261 | Loss: 0.1264 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 38: MAE=11.9467, MAPE=6.81%, RMSE=19.7316, lr=1.0e-03 | beta_eff_mean=0.4458, inj_mean=0.1355, z_mean=0.669, alphaC_mean=[0.2543472647666931, 0.22596324980258942, 0.23280499875545502, 0.28615644574165344]
+Epoch 39/300 | Batch 26/261 | Loss: 0.1381 | OrthoLoss: 0.0002
+Epoch 39/300 | Batch 52/261 | Loss: 0.1263 | OrthoLoss: 0.0002
+Epoch 39/300 | Batch 78/261 | Loss: 0.1265 | OrthoLoss: 0.0000
+Epoch 39/300 | Batch 104/261 | Loss: 0.1305 | OrthoLoss: 0.0001
+Epoch 39/300 | Batch 130/261 | Loss: 0.1268 | OrthoLoss: 0.0000
+Epoch 39/300 | Batch 156/261 | Loss: 0.1239 | OrthoLoss: 0.0000
+Epoch 39/300 | Batch 182/261 | Loss: 0.1202 | OrthoLoss: 0.0000
+Epoch 39/300 | Batch 208/261 | Loss: 0.1256 | OrthoLoss: 0.0002
+Epoch 39/300 | Batch 234/261 | Loss: 0.1224 | OrthoLoss: 0.0000
+Epoch 39/300 | Batch 260/261 | Loss: 0.1320 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 39: MAE=11.9492, MAPE=6.81%, RMSE=19.7535, lr=1.0e-03 | beta_eff_mean=0.4465, inj_mean=0.1339, z_mean=0.670, alphaC_mean=[0.2468116581439972, 0.22219669818878174, 0.23577548563480377, 0.2944030165672302]
+Epoch 40/300 | Batch 26/261 | Loss: 0.1252 | OrthoLoss: 0.0000
+Epoch 40/300 | Batch 52/261 | Loss: 0.1310 | OrthoLoss: 0.0001
+Epoch 40/300 | Batch 78/261 | Loss: 0.1266 | OrthoLoss: 0.0000
+Epoch 40/300 | Batch 104/261 | Loss: 0.1235 | OrthoLoss: 0.0000
+Epoch 40/300 | Batch 130/261 | Loss: 0.1203 | OrthoLoss: 0.0000
+Epoch 40/300 | Batch 156/261 | Loss: 0.1313 | OrthoLoss: 0.0000
+Epoch 40/300 | Batch 182/261 | Loss: 0.1267 | OrthoLoss: 0.0000
+Epoch 40/300 | Batch 208/261 | Loss: 0.1143 | OrthoLoss: 0.0000
+Epoch 40/300 | Batch 234/261 | Loss: 0.1315 | OrthoLoss: 0.0000
+Epoch 40/300 | Batch 260/261 | Loss: 0.1286 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 40: MAE=12.0082, MAPE=6.85%, RMSE=19.8473, lr=1.0e-03 | beta_eff_mean=0.4473, inj_mean=0.1327, z_mean=0.673, alphaC_mean=[0.25285646319389343, 0.22094514966011047, 0.23225153982639313, 0.2931238114833832]
+Epoch 41/300 | Batch 26/261 | Loss: 0.1181 | OrthoLoss: 0.0001
+Epoch 41/300 | Batch 52/261 | Loss: 0.1187 | OrthoLoss: 0.0004
+Epoch 41/300 | Batch 78/261 | Loss: 0.1233 | OrthoLoss: 0.0005
+Epoch 41/300 | Batch 104/261 | Loss: 0.1172 | OrthoLoss: 0.0002
+Epoch 41/300 | Batch 130/261 | Loss: 0.1225 | OrthoLoss: 0.0001
+Epoch 41/300 | Batch 156/261 | Loss: 0.1290 | OrthoLoss: 0.0000
+Epoch 41/300 | Batch 182/261 | Loss: 0.1292 | OrthoLoss: 0.0001
+Epoch 41/300 | Batch 208/261 | Loss: 0.1219 | OrthoLoss: 0.0001
+Epoch 41/300 | Batch 234/261 | Loss: 0.1183 | OrthoLoss: 0.0001
+Epoch 41/300 | Batch 260/261 | Loss: 0.1216 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 41: MAE=11.9717, MAPE=6.83%, RMSE=19.8271, lr=1.0e-03 | beta_eff_mean=0.4473, inj_mean=0.1317, z_mean=0.675, alphaC_mean=[0.24996992945671082, 0.22469079494476318, 0.23315878212451935, 0.2912101447582245]
+Epoch 42/300 | Batch 26/261 | Loss: 0.1141 | OrthoLoss: 0.0001
+Epoch 42/300 | Batch 52/261 | Loss: 0.1223 | OrthoLoss: 0.0000
+Epoch 42/300 | Batch 78/261 | Loss: 0.1186 | OrthoLoss: 0.0001
+Epoch 42/300 | Batch 104/261 | Loss: 0.1179 | OrthoLoss: 0.0001
+Epoch 42/300 | Batch 130/261 | Loss: 0.1172 | OrthoLoss: 0.0000
+Epoch 42/300 | Batch 156/261 | Loss: 0.1220 | OrthoLoss: 0.0000
+Epoch 42/300 | Batch 182/261 | Loss: 0.1174 | OrthoLoss: 0.0001
+Epoch 42/300 | Batch 208/261 | Loss: 0.1213 | OrthoLoss: 0.0000
+Epoch 42/300 | Batch 234/261 | Loss: 0.1164 | OrthoLoss: 0.0000
+Epoch 42/300 | Batch 260/261 | Loss: 0.1184 | OrthoLoss: 0.0001
+[PEMS08] d_model=112, layers=5 | Epoch 42: MAE=11.9675, MAPE=6.83%, RMSE=19.8591, lr=1.0e-03 | beta_eff_mean=0.4478, inj_mean=0.1309, z_mean=0.676, alphaC_mean=[0.2459114044904709, 0.23054133355617523, 0.23391127586364746, 0.28885459899902344]
+Epoch 43/300 | Batch 26/261 | Loss: 0.1180 | OrthoLoss: 0.0000
+Epoch 43/300 | Batch 52/261 | Loss: 0.1207 | OrthoLoss: 0.0000
+Epoch 43/300 | Batch 78/261 | Loss: 0.1276 | OrthoLoss: 0.0000
+Epoch 43/300 | Batch 104/261 | Loss: 0.1241 | OrthoLoss: 0.0000
+Epoch 43/300 | Batch 130/261 | Loss: 0.1262 | OrthoLoss: 0.0000
+Epoch 43/300 | Batch 156/261 | Loss: 0.1198 | OrthoLoss: 0.0001
+Epoch 43/300 | Batch 182/261 | Loss: 0.1168 | OrthoLoss: 0.0000
+Epoch 43/300 | Batch 208/261 | Loss: 0.1292 | OrthoLoss: 0.0000
+Epoch 43/300 | Batch 234/261 | Loss: 0.1227 | OrthoLoss: 0.0000
+Epoch 43/300 | Batch 260/261 | Loss: 0.1313 | OrthoLoss: 0.0000
+[PEMS08] d_model=112, layers=5 | Epoch 43: MAE=11.9848, MAPE=6.83%, RMSE=19.9109, lr=5.0e-04 | beta_eff_mean=0.4477, inj_mean=0.1301, z_mean=0.677, alphaC_mean=[0.25442683696746826, 0.22993449866771698, 0.2302715927362442, 0.2846565544605255]
+EarlyStopping: val MAE 连续 5 个 epoch 未提升，提前停止。
+[PEMS08-Test] MAE=11.8150, MAPE=6.69%, RMSE=19.3114
+
