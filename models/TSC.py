@@ -1,37 +1,19 @@
-"""
-Pseudo-code level implementation of TSC module.
+"""Traffic State Controller (TSC).
 
-Paper-aligned Stage-3 (State-Guided Modulation):
-  1) Compute first-order difference statistics to build 5D evidence vector v_t (Eq.20)
-  2) Induce latent control state s_state via MLP encoder (Eq.21)
-  3) Soft prototype anchoring to produce s_ctrl (Eq.22)
-  4) Warmup-gated bounded modulation of routing coefficients rho -> rho_tilde (Eq.24)
-  5) Produce bounded correction residual delta_y_corr (Eq.24)
-  Optional: frozen LLM branch (TESC-EoS) provides additive s_aux, disabled by default.
+Implements the five-dimensional evidence vector, MLP state induction,
+prototype anchoring, warmup-gated routing-logit modulation and feature-level
+residual correction in the current paper. No language-model branch is used.
 """
-
 from __future__ import annotations
 
 from typing import Dict, Optional
-
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 
 class TSC(nn.Module):
-    """
-    Traffic State Controller (pseudocode form).
-
-    Inputs:
-        X:         (B, T, N)        raw input sequence for evidence extraction
-        rho_comm:  (B, C_comm)      community routing weights from FCR-ST
-        S:         (B, N, d_model)  spatial feature map for residual correction
-        t:         int              current training step for warmup schedule
-    Output dict:
-        s_ctrl:       (B, d_model)
-        rho_tilde:    (B, C_comm)
-        delta_y_corr: (B, horizon, N)
-    """
+    """Evidence-driven traffic-state controller."""
 
     def __init__(
         self,
@@ -41,103 +23,112 @@ class TSC(nn.Module):
         num_prototypes: int = 8,
         tau_p: float = 0.1,
         warmup_steps: int = 1000,
-    ):
+        beta_init: float = 1.0,
+    ) -> None:
         super().__init__()
-        self.d_model = d_model
-        self.num_communities = num_communities
-        self.out_horizon = out_horizon
-        self.tau_p = tau_p
-        self.warmup_steps = warmup_steps
+        self.d_model = int(d_model)
+        self.num_communities = int(num_communities)
+        self.out_horizon = int(out_horizon)
+        self.tau_p = max(float(tau_p), 1e-6)
+        self.warmup_steps = max(int(warmup_steps), 1)
 
-        # MLP encoder: 5D evidence vector -> latent state (Eq.21)
         self.mlp_encoder = nn.Sequential(
             nn.Linear(5, d_model),
             nn.GELU(),
             nn.Linear(d_model, d_model),
         )
-
-        # Learnable prototype bank (Eq.22)
-        self.prototypes = nn.Parameter(torch.randn(num_prototypes, d_model))
-
-        # Routing modulation: s_ctrl -> delta rho (Eq.24)
+        self.prototypes = nn.Parameter(torch.randn(num_prototypes, d_model) * 0.02)
         self.W_rho = nn.Linear(d_model, num_communities)
-
-        # Residual correction strength: s_ctrl -> beta (Eq.24)
         self.W_beta = nn.Linear(d_model, d_model)
-
-        # Correction head applied to spatial feature map S
-        self.corr_head = nn.Sequential(
-            nn.Linear(d_model, d_model),
-            nn.GELU(),
-            nn.Linear(d_model, out_horizon),
-        )
-
-        # Optional frozen-LLM branch (disabled by default)
-        self.use_llm = False
-        self.llm_gamma = nn.Parameter(torch.zeros(1))
+        self.beta_base = nn.Parameter(torch.tensor(float(beta_init)))
 
     def _build_evidence_vector(self, X: torch.Tensor) -> torch.Tensor:
-        """
-        Construct 5D evidence vector v_t from input differences (Eq.20).
-        v_t = [shock, trend, recovery, volatility, magnitude]
-        X: (B, T, N)
-        """
-        delta_X = X.diff(dim=1)                        # (B, T-1, N)
-        delta_last = delta_X[:, -1, :].mean(dim=-1)    # shock:    µ(∆X_last)
-        delta_tau = delta_X.mean(dim=(1, 2))            # trend:    µ(∆X_τ)
-        s = delta_last
-        u = delta_tau
-        recovery = -(s * u.sign())                      # recovery: -s·sgn(u)
-        volatility = delta_X.std(dim=(1, 2))            # volatility: σ(∆X_τ)
-        magnitude = delta_X.abs().mean(dim=(1, 2))      # magnitude: µ(|∆X_τ|)
-        v_t = torch.stack(
-            [delta_last, delta_tau, recovery, volatility, magnitude], dim=-1
-        )  # (B, 5)
-        return v_t
+        """Equation (20): [shock, trend, recovery, volatility, magnitude].
 
-    def _warmup_gate(self, t: int) -> float:
-        """Warmup schedule λ(t): linearly ramps from 0 to 1 over warmup_steps."""
-        return min(1.0, t / max(self.warmup_steps, 1))
+        X is (B,T,N), with the latest temporal difference at index -1.
+        """
+        if X.ndim != 3:
+            raise ValueError(f"X must have shape (B,T,N), got {tuple(X.shape)}")
+        if X.shape[1] < 2:
+            raise ValueError("TSC requires at least two historical time steps")
+        delta_x = X.diff(dim=1)
+        delta_last = delta_x[:, -1, :]  # (B,N)
+        shock = delta_last.mean(dim=-1)
+        trend = delta_x.mean(dim=(1, 2))
+        latest_change_magnitude = delta_last.abs().mean(dim=-1)
+        recovery = -latest_change_magnitude * trend.sign()
+        volatility = delta_x.std(dim=(1, 2), unbiased=False)
+        magnitude = delta_x.abs().mean(dim=(1, 2))
+        return torch.stack([shock, trend, recovery, volatility, magnitude], dim=-1)
+
+    def _warmup_gate(self, step: int, inference: bool = False) -> float:
+        if inference:
+            return 1.0
+        return min(1.0, max(0.0, float(step) / float(self.warmup_steps)))
+
+    @staticmethod
+    def _logits_from_probability(rho_comm: torch.Tensor) -> torch.Tensor:
+        rho = rho_comm.clamp(min=1e-6, max=1.0 - 1e-6)
+        return torch.log(rho) - torch.log1p(-rho)
+
+    def apply_feature_correction(
+        self,
+        spatial_features: torch.Tensor,
+        beta_eff: torch.Tensor,
+    ) -> torch.Tensor:
+        """Equation (23): Delta H_corr = beta_eff ⊙ S.
+
+        Accepts S=(B,N,D) or S=(B,T,N,D), and broadcasts beta_eff=(B,D).
+        """
+        if spatial_features.shape[-1] != self.d_model:
+            raise ValueError(
+                f"Last dimension of spatial_features must be d_model={self.d_model}, "
+                f"got {spatial_features.shape[-1]}"
+            )
+        shape = [beta_eff.shape[0]] + [1] * (spatial_features.ndim - 2) + [self.d_model]
+        return beta_eff.view(*shape) * spatial_features
 
     def forward(
         self,
         X: torch.Tensor,
         rho_comm: torch.Tensor,
-        S: torch.Tensor,
-        t: int = 1000,
+        S: Optional[torch.Tensor] = None,
+        t: int = 0,
+        routing_logits: Optional[torch.Tensor] = None,
+        inference: bool = False,
     ) -> Dict[str, torch.Tensor]:
-        """Paper-aligned state-guided control branch."""
-        B, T, N = X.shape
+        if rho_comm.ndim != 2 or rho_comm.shape[-1] != self.num_communities:
+            raise ValueError(
+                f"rho_comm must have shape (B,{self.num_communities}), got {tuple(rho_comm.shape)}"
+            )
+        v_t = self._build_evidence_vector(X)
+        s_state = self.mlp_encoder(v_t)
 
-        # 1) Build 5D evidence vector v_t (Eq.20)
-        v_t = self._build_evidence_vector(X)            # (B, 5)
+        # Equation (22): soft assignment to the learnable state-prototype bank.
+        logits = (s_state @ self.prototypes.transpose(0, 1)) / self.tau_p
+        pi_t = torch.softmax(logits, dim=-1)
+        s_ctrl = pi_t @ self.prototypes
 
-        # 2) MLP state induction (Eq.21)
-        s_state = self.mlp_encoder(v_t)                 # (B, d_model)
+        lam = self._warmup_gate(t, inference=inference)
+        base_logits = routing_logits if routing_logits is not None else self._logits_from_probability(rho_comm)
+        if base_logits.shape != rho_comm.shape:
+            raise ValueError("routing_logits and rho_comm must have the same shape")
 
-        # 3) Soft prototype anchoring -> s_ctrl (Eq.22)
-        logits = s_state @ self.prototypes.T / self.tau_p   # (B, K)
-        pi_t = torch.softmax(logits, dim=-1)                # (B, K)
-        s_ctrl = pi_t @ self.prototypes                     # (B, d_model)
+        # Equation (23): perturb logits before sigmoid to keep gates in (0,1).
+        routing_delta = torch.tanh(self.W_rho(s_ctrl))
+        rho_tilde = torch.sigmoid(base_logits + lam * routing_delta)
 
-        # Optional LLM additive enhancement (Eq.23), disabled by default
-        if self.use_llm:
-            s_ctrl = s_ctrl + self.llm_gamma.clamp(0, 1) * self._llm_branch(X)
-
-        # 4) Warmup gate λ(t)
-        lam = self._warmup_gate(t)
-
-        # 5) Bounded routing modulation: rho_tilde (Eq.24)
-        rho_tilde = rho_comm + lam * torch.tanh(self.W_rho(s_ctrl))
-
-        # 6) Bounded residual correction: beta_eff, delta_y_corr (Eq.24)
-        beta_eff = torch.sigmoid(self.W_beta(s_ctrl))      # (B, d_model)
-        # S: (B, N, d_model)
-        corrected = beta_eff.unsqueeze(1) * S              # (B, N, d_model)
-        delta_y_corr = self.corr_head(corrected).permute(0, 2, 1)  # (B, horizon, N)
-
-        return {
+        # Equation (23): beta_eff = beta * (1 + lambda * sigmoid(W_beta s_ctrl)).
+        beta_eff = self.beta_base * (1.0 + lam * torch.sigmoid(self.W_beta(s_ctrl)))
+        result = {
+            "v_t": v_t,
+            "s_state": s_state,
+            "pi_t": pi_t,
             "s_ctrl": s_ctrl,
             "rho_tilde": rho_tilde,
-            "delta_y_corr": delta_y_corr,
+            "beta_eff": beta_eff,
+            "lambda_t": X.new_tensor(lam),
         }
+        if S is not None:
+            result["delta_H_corr"] = self.apply_feature_correction(S, beta_eff)
+        return result
